@@ -6,11 +6,13 @@
 #include "MainState.h"
 #include "SimplePool.h"
 #include "Definitions.h"
+#include "InputManager.h"
 
 Engine* Engine::_singleton = nullptr;
 Engine::Engine()
 {
 	_closing = false;
+	_interactionHappened = true;
 }
 
 
@@ -65,23 +67,31 @@ void Engine::app(const size_t & x, const size_t & y, const char* title, const bo
 	SetConsoleTitle(title);
 	SetConsoleMode(hnd, ENABLE_EXTENDED_FLAGS);
 	StateManager::ChangeState(new MainState());
+	int it = 0;
 	while (!_closing)//
 	{
 		//system("cls");
-		DWORD P;
-		FillConsoleOutputAttribute(hnd, BackgroundColor::BBLACK | LetterColor::BLACK, _width*_height,COORD{ 0,0 }, &P);
-		FillConsoleOutputCharacter(hnd, '\0', _width*_height, COORD{ 0,0 }, &P);
+		if (_interactionHappened || !((++it) %= 50))
+		{
+			DWORD P;
+			FillConsoleOutputAttribute(hnd, BackgroundColor::BBLACK | LetterColor::BLACK, (DWORD)_width*(DWORD)_height, COORD{ 0,0 }, &P);
+			FillConsoleOutputCharacter(hnd, '\0', (DWORD)_width*(DWORD)_height, COORD{ 0,0 }, &P);
+		}
+		SetConsoleCursorPosition(hnd, COORD{ 0,0 });
+		SetConsoleTextAttribute(hnd, BackgroundColor::BBLACK | LetterColor::WHITE);
 		StateManager::Update();
 		SimplePool::drawAll();
 		if (_windows[0])
 			_windows[0]->draw();
 		if (_windows[1])
 			_windows[1]->draw();
-		for (int i = 0; i < 2; ++i)
+		for (int i = 2; i--;)
 			if (_windows[i])
 				_windows[i]->update();
-		SetConsoleTextAttribute(hnd, BackgroundColor::BBLACK | LetterColor::WHITE);
-		Sleep(100);
+		InputManager::Update();
+		SimplePool::updateAll();
+		Sleep(16);
+		_interactionHappened = false;
 	}
 }
 
@@ -98,11 +108,13 @@ size_t Engine::getHeight() const
 void Engine::setTextWindowActive(const bool & value)
 {
 	_windows[0]->SetActive(value);
+	_interactionHappened = true;
 }
 
 void Engine::setMenuWindowActive(const bool & value)
 {
 	_windows[1]->SetActive(value);
+	_interactionHappened = true;
 }
 
 void Engine::setTextWindow(TextWindow* const& val)
@@ -140,4 +152,9 @@ void Engine::CloseApp()
 	GetConsoleCursorInfo(getConsoleHandle(), &cursor);
 	cursor.bVisible = TRUE;
 	SetConsoleCursorInfo(getConsoleHandle(), &cursor);
+}
+
+void Engine::ReportInteraction()
+{
+	_interactionHappened = true;
 }

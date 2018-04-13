@@ -21,39 +21,39 @@ void Window::draw()
 	HANDLE console = getConsoleHandle();
 	DWORD nonImportant;
 	SetConsoleTextAttribute(console, _backgroundColor | _letterColor);
-	pos.X = _x;
-	pos.Y = _y;
+	pos.X = (SHORT)_x;
+	pos.Y = (SHORT)_y;
 	SetConsoleCursorPosition(console, pos);
 	WriteConsole(console, &borders[topLeft], 1, &nonImportant, NULL);
-	pos.X = _x + _width;
-	pos.Y = _y;
+	pos.X = (SHORT)_x + (SHORT)_width;
+	pos.Y = (SHORT)_y;
 	SetConsoleCursorPosition(console, pos);
 	WriteConsole(console, &borders[topRight], 1, &nonImportant, NULL);
-	pos.X = _x;
-	pos.Y = _y + _height;
+	pos.X = (SHORT)_x;
+	pos.Y = (SHORT)_y + (SHORT)_height;
 	SetConsoleCursorPosition(console, pos);
 	WriteConsole(console, &borders[bottomLeft], 1, &nonImportant, NULL);
-	pos.X = _x + _width;
-	pos.Y = _y + _height;
+	pos.X = (SHORT)_x + (SHORT)_width;
+	pos.Y = (SHORT)_y + (SHORT)_height;
 	SetConsoleCursorPosition(console, pos);
 	WriteConsole(console, &borders[bottomRight], 1, &nonImportant, NULL);
 	for (int i = 1; i < _width; ++i)
 	{
-		pos.X = _x + i;
-		pos.Y = _y;
+		pos.X = (SHORT)_x + (SHORT)i;
+		pos.Y = (SHORT)_y;
 		SetConsoleCursorPosition(console, pos);
 		WriteConsole(console, &borders[horizontal], 1, &nonImportant, NULL);
-		pos.Y = _y + _height;
+		pos.Y = (SHORT)_y + (SHORT)_height;
 		SetConsoleCursorPosition(console, pos);
 		WriteConsole(console, &borders[horizontal], 1, &nonImportant, NULL);
 	}
 	for (int i = 1; i < _height; ++i)
 	{
-		pos.X = _x;
-		pos.Y = _y + i;
+		pos.X = (SHORT)_x;
+		pos.Y = (SHORT)_y + (SHORT)i;
 		SetConsoleCursorPosition(console, pos);
 		WriteConsole(console, &borders[vertical], 1, &nonImportant, NULL);
-		pos.X = _x + _width;
+		pos.X = (SHORT)_x + (SHORT)_width;
 		SetConsoleCursorPosition(console, pos);
 		WriteConsole(console, &borders[vertical], 1, &nonImportant, NULL);
 	}
@@ -61,8 +61,8 @@ void Window::draw()
 	{
 		for (int j = 1; j < _height; ++j)
 		{
-			pos.X = _x + i;
-			pos.Y = _y + j;
+			pos.X = (SHORT)_x + (SHORT)i;
+			pos.Y = (SHORT)_y + (SHORT)j;
 			SetConsoleCursorPosition(console, pos);
 			WriteConsole(console, "\0", 1, &nonImportant, NULL);
 		}

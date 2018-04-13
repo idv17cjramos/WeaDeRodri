@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Engine.h"
 #include "MenuWindow.h"
-
+#include "InputManager.h"
 
 MainState::MainState()
 {
@@ -14,6 +14,7 @@ MainState::~MainState()
 }
 
 TextWindow* mw;
+MenuWindow* menu;
 void MainState::Start()
 {
 	mw = new TextWindow();
@@ -30,10 +31,31 @@ void MainState::Start()
 	mw->SetDownScrollKey(Key::down);
 	mw->CloseOnScrollEnd(true);
 	mw->SetAutoScroll(false);
+	menu = new MenuWindow();
+	menu->SetPosition(20, 20);
+	menu->SetDimentions(20, 20);
+	menu->SetBackgroundColor(BackgroundColor::BCYAN);
+	menu->SetLetterColor(LetterColor::GRAY);
+	menu->SetActive(true);
+	menu->AddMenuItem("Test 1");
+	menu->AddMenuItem("Test 2");
+	menu->AddMenuItem("Test 3");
+	menu->AddMenuItem("Test 4");
+	menu->SetCursorDownKey(Key::S);
+	menu->SetCursorUpKey(Key::W);
+	menu->SetCursorType(MenuWindow::CursorType::arrow);
+	menu->SetCursorSelection(Key::space);
+	Engine::getInstance()->setMenuWindow(menu);
 }
 
 void MainState::Update()
 {
+	if(InputManager::GetKeyDown(Key::A))
+		std::cout << " A" << std::endl;
+	if(InputManager::GetKeyUp(Key::C))
+		std::cout << " C" << std::endl;
+	if(InputManager::GetKey(Key::U))
+		std::cout << " U" << std::endl;
 }
 
 void MainState::End()

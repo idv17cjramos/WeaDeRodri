@@ -37,7 +37,7 @@ private:
 	Key _selection,
 		_up,
 		_down;
-	char arrowCursorPRight = 175;
-	char arrowCursorPLeft = 174;
+	const unsigned char _arrowCursorPRight = 175;
+	const unsigned char _arrowCursorPLeft = 174;
 };
 

@@ -27,9 +27,15 @@ void SimplePool::drawAll()
 	for (auto &obj : _pool)//para cada objeto dentro de la lista:haz//no accesas por numero, si no por objeto
 	{
 		if (!obj->isInitialized())//pregunta si esta inicializado
-			obj->Init();//si no esta, lo inicializas
-		obj->update();//si ya esta lo actualizas
+			obj->Init();//si no esta, lo inicializas	
 		obj->draw();//y lo dibujas
+	}
+}
+void SimplePool::updateAll()
+{
+	for (auto &obj : _pool)//para cada objeto dentro de la lista:haz//no accesas por numero, si no por objeto
+	{
+		obj->update();//si ya esta lo actualizas
 	}
 }
 /*for auto == for each*/

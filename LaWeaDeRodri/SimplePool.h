@@ -10,6 +10,7 @@ public:
 	static void subscribe(Entity* const& obj);
 	static void deSubscribe(Entity* const& obj);
 	static void drawAll();
+	static void updateAll();
 private:
 	static std::list<Entity*> _pool;
 };

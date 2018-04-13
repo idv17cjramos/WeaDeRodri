@@ -1,5 +1,6 @@
 #include "TextWindow.h"
 #include "HelperFunctions.h"
+#include "Engine.h"
 
 TextWindow::TextWindow()
 {
@@ -19,16 +20,16 @@ void TextWindow::draw()
 	DWORD nonImportant;
 	HANDLE console = getConsoleHandle();
 	int linesToDraw = (_currentLetter / _maxLineWidth) + 1;//division +1 * residuo
-	pos.X = _x + 1;//te vas a parar para escribir en pos del objeto +1 en x
+	pos.X = (SHORT)_x + 1;//te vas a parar para escribir en pos del objeto +1 en x
 	for (int j = _scrollLine * _maxLineWidth, i = 0; j < _currentLetter; ++j)
 	{
 		if (!(j%_maxLineWidth) && j != _scrollLine * _maxLineWidth)
 		{
 			++i;
-			pos.X = _x + 1;
+			pos.X = (SHORT)_x + 1;
 		}
 		if (i >= _maxScrollLines - 1) break;
-		pos.Y = _y + 1 + i;
+		pos.Y = (SHORT)_y + 1 + (SHORT)i;
 		++pos.X;
 		SetConsoleCursorPosition(console, pos);
 		//TODO : Terminar de entender
@@ -39,12 +40,14 @@ void TextWindow::draw()
 		++_scrollLine;
 		Sleep(1000);
 	}
-	_currentLetter += _speed;
-	if (_currentLetter >= _string.length()) _currentLetter = _string.length();
+	_currentLetter += (int)_speed;
+	if ((size_t)_currentLetter >= _string.length()) _currentLetter = (int)_string.length();
+	else Engine::getInstance()->ReportInteraction();
 }
 
 void TextWindow::update()
 {
+	if (!_isActive) return;
 	DWORD numInputRead;//Bits bytes words 8bytes dword 16bytes
 	GetNumberOfConsoleInputEvents(GetStdHandle(STD_INPUT_HANDLE), &numInputRead);
 	if (numInputRead)//el nuemro de inputs
@@ -57,13 +60,25 @@ void TextWindow::update()
 				WORD keyC = _input[i].Event.KeyEvent.wVirtualKeyCode;
 				bool keypressed = _input[i].Event.KeyEvent.bKeyDown;
 				if (keyC == _scrollKey && !keypressed)
-					++_scrollLine;
+				{
+					++_scrollLine; 
+					Engine::getInstance()->ReportInteraction();
+				}
 				if (keyC == _closeKey && !keypressed)
-					_isActive = false;
+				{
+					_isActive = false; 
+					Engine::getInstance()->ReportInteraction();
+				}
 				if (keyC == _upScroll && !keypressed)
+				{
 					--_scrollLine;
+					Engine::getInstance()->ReportInteraction();
+				}
 				if (keyC == _downScroll && !keypressed)
+				{
 					++_scrollLine;
+					Engine::getInstance()->ReportInteraction();
+				}
 			}
 		}
 	}
@@ -81,8 +96,8 @@ void TextWindow::SetText(const std::string & text)
 	_string = text;
 	_currentLetter = 0;
 	_scrollLine = 0;
-	_maxLineWidth = _width - 3;//cuantos caracteres por linea. Tamanio de ventana menos margenes
-	_maxScrollLines = (((_string.length() / _maxLineWidth) + 1) / _height) + 1;
+	_maxLineWidth = (unsigned short)_width - 3;//cuantos caracteres por linea. Tamanio de ventana menos margenes
+	_maxScrollLines = (unsigned short)(((_string.length() / _maxLineWidth) + 1) / _height) + 1;
 }
 
 void TextWindow::SetAutoScroll(const bool & val)

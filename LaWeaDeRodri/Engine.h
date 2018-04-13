@@ -18,10 +18,11 @@ public:
 	TextWindow* getTextWindow() const;
 	MenuWindow* getMenuWindow() const;
 	void CloseApp();
+	void ReportInteraction();
 private:
 	static Engine* _singleton;//nop
 	size_t _width, _height;
-	bool _closing;
+	bool _closing, _interactionHappened;
 	Window* _windows[2] = { nullptr, nullptr };//wat
 };
 

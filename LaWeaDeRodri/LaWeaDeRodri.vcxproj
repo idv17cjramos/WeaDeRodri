@@ -139,9 +139,9 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HelperFunctions.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainState.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="SimplePool.h" />
     <ClInclude Include="State.h" />
@@ -154,10 +154,10 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainState.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="SimplePool.cpp" />
     <ClCompile Include="State.cpp" />

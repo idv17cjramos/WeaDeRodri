@@ -90,4 +90,5 @@ typedef enum Key {
 	rctrl,
 	lalt, 
 	ralt,
+	KeysEnd,
 } Key;
