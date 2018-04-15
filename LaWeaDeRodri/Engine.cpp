@@ -22,7 +22,7 @@ Engine::~Engine()
 
 Engine * Engine::getInstance()
 {
-	return _singleton ? _singleton : _singleton = new Engine();
+	return _singleton ? _singleton : _singleton = new Engine();//SIe xiste, retornalo, si no crea uno nuevo
 }
 
 void Engine::app(const size_t & x, const size_t & y, const char* title, const bool& fullScreen)

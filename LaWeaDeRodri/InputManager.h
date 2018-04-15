@@ -13,7 +13,7 @@ public:
 private:
 	static INPUT_RECORD _input[32];
 	static HANDLE _inputHandle;
-	static bool _totalKeysState[Key::KeysEnd];
+	static bool _totalKeysState[Key::KeysEnd];//Representa el tamaño máximo del arreglo
 	static DWORD _eventsRead;
 };
 

@@ -1,4 +1,4 @@
-#pragma once//Why do we need a state manager??
+#pragma once//Why do we need a state manager? Basically so we can pause the game
 #include <stack>
 #include "State.h"
 class StateManager

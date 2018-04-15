@@ -11,7 +11,7 @@ public:
 	~TextWindow();//desturctor
 	
 	//Class Functions
-	void draw() override;//dE UNA CLASE APDRE LA PUEDES CAMBIAR CUANDO LA LLAMES
+	void draw() override;
 	void update() override;
 	void SetTextSpeed(const unsigned short& speed);
 	void SetText(const std::string& text);

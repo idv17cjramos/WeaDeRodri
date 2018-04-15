@@ -6,7 +6,7 @@ class MainState :
 public:
 	MainState();
 	~MainState();
-	void Start() override;
+	void Start() override;//Allows to override virtual function
 	void Update() override;
 	void End() override;
 };

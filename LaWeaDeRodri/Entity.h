@@ -4,7 +4,7 @@
 class Entity {
 public:
 	Entity();
-	virtual ~Entity();//Virtual?
+	virtual ~Entity();//Virtual es para que puedas volver a escribir los contenidos de la función
 	void draw();
 	void setSprite(char* const& tiles, unsigned short* const& colors, const size_t& hSize, const size_t& vSize);
 	void move(const int& x, const int& y);

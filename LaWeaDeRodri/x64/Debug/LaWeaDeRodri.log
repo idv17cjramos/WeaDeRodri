@@ -1,4 +1,16 @@
 ﻿  Engine.cpp
 c:\users\komo97\documents\github\weaderodri\laweaderodri\engine.cpp(56): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
 c:\users\komo97\documents\github\weaderodri\laweaderodri\engine.cpp(58): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
+  Generating Code...
+  Compiling...
+  main.cpp
+  Window.cpp
+  TextWindow.cpp
+  MenuWindow.cpp
+  MainState.cpp
+  InputManager.cpp
+  Generating Code...
+  Compiling...
+  Tile.cpp
+  Generating Code...
   LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe

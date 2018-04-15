@@ -1,5 +1,30 @@
 //TODO: Usar mas TODO
 
+/*
+* BINARY OPERATORS
+* | = OR
+*	1 0 1 0 
+*   0 1 1 0 |
+*	---------
+*	1 1 1 0
+*
+* & = AND
+*	1 0 1 0
+*   0 1 1 0 &
+*	---------
+*	0 0 1 0
+*
+* << = LEFTWISE BIT SHIFT
+*	1 0 1 0 << 1
+*	---------
+*	0 1 0 0
+*
+* >> = RIGHTWISE BIT SHIFT
+*	1 0 1 0 >> 1
+*	---------
+*	0 1 0 1
+*/
+
 #pragma once
 #include <Windows.h>
 typedef enum LetterColor{
@@ -92,3 +117,20 @@ typedef enum Key {
 	ralt,
 	KeysEnd,
 } Key;
+
+enum TileType {
+	Forest,
+	Path,
+	Rock,
+	Lava,
+	Water,
+	Treasure,
+	Merchant,
+	Boss,
+};
+
+enum TileStatus {
+	Walked,
+	NotWalked,
+	Seen
+};

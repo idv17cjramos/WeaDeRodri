@@ -57,7 +57,7 @@ void MenuWindow::draw()
 	HANDLE console = getConsoleHandle();
 	unsigned short attribs;
 	int spacingBetweenItems = (int)(_height - 3) / (int)_menuItems.size();
-	pos.Y = (SHORT)_y + 1;
+	pos.Y = (SHORT)_y + (SHORT)spacingBetweenItems;
 	size_t item = 0;
 	for (auto &i : _menuItems)
 	{
