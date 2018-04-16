@@ -20,14 +20,10 @@ public:
 	void ReportInteraction();
 private:
 	Engine();
-	static Engine* _singleton;
+	static Engine* _singleton;//TODO
 	size_t _width, _height;
 	bool _closing, _interactionHappened;
-	Window* _windows[2] = { nullptr, nullptr };
-};
-/*Contructor de clase es privado, por lo que el singleton crea una instancia de la clase dentro de la clase
-slo puedes tener una instancia
-Si llamas  a engine desde cualquier archivo, siempre va a llamar a ese
-analogía de llamar a un celular*/
+	Window* _windows[2] = { nullptr, nullptr };//TODO
 
-/*Inicializador de arreglo, tienes que poner todos los elementos entre corchetes, los separas con una coma, en este caso, como es un arreglo de punteros, como regla, los punteros empiezan en nulo */
+};
+

@@ -33,7 +33,7 @@ void Entity::draw()
 
 }
 
-void Entity::setSprite(char * const & tiles, unsigned short * const & colors, const size_t & hSize, const size_t & vSize)
+void Entity::setSprite(unsigned char * const & tiles, unsigned short * const & colors, const size_t & hSize, const size_t & vSize)
 {
 	_tiles = tiles;
 	_colors = colors;
