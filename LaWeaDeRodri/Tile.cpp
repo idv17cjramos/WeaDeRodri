@@ -47,6 +47,7 @@ void Tile::SetStatus(TileStatus status)
 
 void Tile::SetTileType(TileType type)
 {
+	if (TileType::TileEnumEnd == type) return;
 	_tType = type;
 	setSprite(&_realTiles[type], &_realColors[type], 1, 1);
 }

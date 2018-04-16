@@ -6,15 +6,13 @@
   SimplePool.cpp
   MenuWindow.cpp
   Map.cpp
-c:\users\royra\documents\github\weaderodri\laweaderodri\map.h(1): warning C4068: unknown pragma
   MainState.cpp
   main.cpp
   InputManager.cpp
   HelperFunctions.cpp
   Entity.cpp
   Engine.cpp
-c:\users\royra\documents\github\weaderodri\laweaderodri\engine.cpp(56): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
-c:\users\royra\documents\github\weaderodri\laweaderodri\engine.cpp(58): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\engine.cpp(56): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\engine.cpp(58): warning C4267: '=': conversion from 'size_t' to 'SHORT', possible loss of data
   Generating Code...
-  LaWeaDeRodri.vcxproj -> C:\Users\royra\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
-  LaWeaDeRodri.vcxproj -> C:\Users\royra\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.pdb (Partial PDB)
+  LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe

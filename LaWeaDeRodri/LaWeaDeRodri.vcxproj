@@ -23,7 +23,7 @@
     <ProjectGuid>{3B1BE30A-1AE7-4768-9153-82BEEF4FE510}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LaWeaDeRodri</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

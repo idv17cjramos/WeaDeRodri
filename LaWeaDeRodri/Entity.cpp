@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "HelperFunctions.h"
 #include "SimplePool.h"
-
+#include "Engine.h"
 
 Entity::Entity()
 {
@@ -25,6 +25,10 @@ void Entity::draw()
 		{
 			pos.X = _x + j;
 			pos.Y = _y + i;
+			if (pos.X < 0 || pos.Y < 0 ||
+				pos.X > Engine::getInstance()->getWidth() ||
+				pos.Y > Engine::getInstance()->getHeight())
+				continue;
 			SetConsoleCursorPosition(console,pos);
 			SetConsoleTextAttribute(console, _colors[getAccessor(j, i, _xSize)]);
 			WriteConsole(console, &_tiles[getAccessor(j, i, _xSize)], 1, &nonImportant, NULL);
