@@ -71,7 +71,8 @@ void Engine::app(const size_t & x, const size_t & y, const char* title, const bo
 	while (!_closing)//
 	{
 		//system("cls");
-		if (_interactionHappened || !((++it) %= 50))
+		(++it);
+		if (_interactionHappened || !(it %= 50))
 		{
 			DWORD P;
 			FillConsoleOutputAttribute(hnd, BackgroundColor::BBLACK | LetterColor::BLACK, (DWORD)_width*(DWORD)_height, COORD{ 0,0 }, &P);

@@ -256,25 +256,25 @@ std::vector<Map::Tree::Rect*> Map::Tree::RandomSplitContainer(Rect * container)
 
 void Map::Tree::draw(std::vector<Tile>& tmap, int w)
 {
-	int height = tmap.size() / w;
+	size_t height = tmap.size() / w;
 	for (int j = 0; j < height; ++j)
 		for (int k = 0; k < w; ++k)
 		{
-			int accessor = getAccessor(k, j, w);
+			size_t accessor = getAccessor((size_t)k, (size_t)j, w);
 			if (k - 1 > 0)
-				tmap[accessor].left = &tmap[getAccessor(k - 1, j, w)];
+				tmap[accessor].left = &tmap[getAccessor((size_t)k - 1, (size_t)j, w)];
 			else
 				tmap[accessor].left = new Tile(TileType::TileEnumEnd);
 			if (k + 1 < w)
-				tmap[accessor].right = &tmap[getAccessor(k + 1, j, w)];
+				tmap[accessor].right = &tmap[getAccessor((size_t)k + 1, (size_t)j, w)];
 			else
 				tmap[accessor].right = new Tile(TileType::TileEnumEnd);
 			if (k - 1 > 0)
-				tmap[accessor].up = &tmap[getAccessor(k, j - 1, w)];
+				tmap[accessor].up = &tmap[getAccessor((size_t)k, (size_t)j - 1, w)];
 			else
 				tmap[accessor].up = new Tile(TileType::TileEnumEnd);
 			if (k + 1 < height)
-				tmap[accessor].down = &tmap[getAccessor(k, j + 1, w)];
+				tmap[accessor].down = &tmap[getAccessor((size_t)k, (size_t)j + 1, w)];
 			else
 				tmap[accessor].down = new Tile(TileType::TileEnumEnd);
 		}
@@ -284,7 +284,7 @@ void Map::Tree::draw(std::vector<Tile>& tmap, int w)
 		for (int j = 0; j < i.rect->h; ++j)
 			for (int k = 0; k < i.rect->w; ++k)
 			{
-				int accessor = getAccessor(k + i.rect->x, j + i.rect->y, w);
+				size_t accessor = getAccessor((size_t)k + (size_t)i.rect->x, (size_t)j + (size_t)i.rect->y, w);
 				tmap[accessor].SetTileType(newType);
 			}
 	}

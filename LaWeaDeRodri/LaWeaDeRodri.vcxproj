@@ -143,7 +143,10 @@
     <ClInclude Include="MainState.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuWindow.h" />
+    <ClInclude Include="RPGCharacter.h" />
+    <ClInclude Include="RPGItem.h" />
     <ClInclude Include="SimplePool.h" />
+    <ClInclude Include="Skills.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="TextWindow.h" />
@@ -159,6 +162,8 @@
     <ClCompile Include="MainState.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuWindow.cpp" />
+    <ClCompile Include="RPGCharacter.cpp" />
+    <ClCompile Include="RPGItem.cpp" />
     <ClCompile Include="SimplePool.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />
