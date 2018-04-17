@@ -127,6 +127,7 @@ enum TileType {
 	Treasure,
 	Merchant,
 	Boss,
+	Player,
 	TileEnumEnd,
 };
 

@@ -9,6 +9,7 @@ unsigned char Tile::_realTiles[TileEnumEnd] =
 	234, //Rock
 	254, //Treasure
 	154, //Merchant
+	143, //Player
 	158 //Boss
 };
 unsigned short Tile::_realColors[TileEnumEnd] = 
@@ -19,6 +20,7 @@ unsigned short Tile::_realColors[TileEnumEnd] =
 	LetterColor::BLUE | BackgroundColor::BBLACK,
 	LetterColor::DARKYELLOW | BackgroundColor::BBLACK,
 	LetterColor::YELLOW | BackgroundColor::BBLACK,
+	LetterColor::MAGENTA | BackgroundColor::BBLACK,
 	LetterColor::MAGENTA | BackgroundColor::BBLACK,
 	LetterColor::DARKRED | BackgroundColor::BBLACK,
 };

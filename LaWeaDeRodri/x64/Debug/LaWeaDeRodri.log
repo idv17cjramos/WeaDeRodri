@@ -1,2 +1,7 @@
-﻿  Tile.cpp
+﻿  Map.cpp
+c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(261): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(265): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(289): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(362): warning C4312: 'type cast': conversion from 'int' to 'char *' of greater size
+c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(363): warning C4312: 'type cast': conversion from 'int' to 'char *' of greater size
   LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe

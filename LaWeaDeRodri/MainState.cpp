@@ -1,9 +1,6 @@
 #include "MainState.h"
-#include <iostream>
 #include "Engine.h"
-#include "MenuWindow.h"
-#include "InputManager.h"
-#include "Map.h"
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 MainState::MainState()
@@ -15,10 +12,7 @@ MainState::~MainState()
 {
 }
 
-TextWindow* mw;
-MenuWindow* menu;
-Map* map;
-int pX = 0, pY = 0;
+
 void MainState::Start()
 {
 	srand(time(NULL));
@@ -52,6 +46,12 @@ void MainState::Start()
 	//menu->SetCursorSelection(Key::space);
 	//Engine::getInstance()->setMenuWindow(menu);
 	map = new Map(300, 300, .4500f, .4500f,7);
+	player = new Tile(TileType::Player);
+	screenW = Engine::getInstance()->getWidth() / 2;
+	screenH = Engine::getInstance()->getHeight() / 2;
+	player->setXY(screenW, screenH);
+	realPX = screenW;
+	realPY = screenH;
 }
 
 void MainState::Update()
@@ -62,16 +62,56 @@ void MainState::Update()
 	//	std::cout << " C" << std::endl;
 	//if(InputManager::GetKey(Key::U))
 	//	std::cout << " U" << std::endl;
+	TileType t;
+	Tile tile = map->getTileAt(realPX, realPY);
 	if (InputManager::GetKey(Key::up))
-		++pY;
+	{
+		t =	tile.up->GetType();
+		if (t == TileType::Forest ||
+			t == TileType::Path ||
+			t == TileType::Lava)
+		{
+			--realPY;
+			++pY;
+		}
+
+	}
 	if (InputManager::GetKey(Key::down))
-		--pY;
+	{
+		t = tile.down->GetType();
+		if (t == TileType::Forest ||
+			t == TileType::Path ||
+			t == TileType::Lava)
+		{
+			++realPY;
+			--pY;
+		}
+	}
 	if (InputManager::GetKey(Key::left))
-		++pX;
+	{
+		t = tile.left->GetType();
+		if (t == TileType::Forest ||
+			t == TileType::Path ||
+			t == TileType::Lava)
+		{
+			--realPX;
+			++pX;
+		}
+	}
 	if (InputManager::GetKey(Key::right))
-		--pX;
+	{
+		t = tile.right->GetType();
+		if (t == TileType::Forest ||
+			t == TileType::Path ||
+			t == TileType::Lava)
+		{
+			++realPX;
+			--pX;
+		}
+	}
 	map->setPlayerPositon(pX, pY);
 	map->drawMap();
+	player->draw();
 }
 
 void MainState::End()

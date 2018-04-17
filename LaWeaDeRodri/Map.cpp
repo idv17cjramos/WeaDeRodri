@@ -57,7 +57,7 @@ void Map::setPlayerPositon(int x, int y)
 {
 	for (int i = 0; i < _height; ++i)
 		for (int j = 0; j < _width; ++j)
-			_tiledMap[getAccessor(j, i, _width)].setXY(i + x, j + y);
+			_tiledMap[getAccessor(j, i, _width)].setXY(j + x, i + y);
 	
 }
 
