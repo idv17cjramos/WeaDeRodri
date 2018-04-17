@@ -42,7 +42,6 @@ void Map::drawMap()
 
 void Map::SaveMapToFile(std::string path)
 {
-	//TODO: Rodri, te toca hacer esto.
 	std::fstream elArchivo(path,std::ios::binary | std::ios::out | std::ios::trunc);
 	elArchivo << *this;
 }
@@ -63,7 +62,6 @@ void Map::setPlayerPositon(int x, int y)
 
 void Map::LoadFromFile(std::string path)
 { 
-	//TODO: Rodri, te toca hacer esto.
 	std::fstream elArchivo(path, std::ios::binary | std::ios::in);
 	elArchivo >> *this;
 }
@@ -367,6 +365,8 @@ std::ostream & operator<<(std::ostream & o, Map map)
 
 std::istream & operator>>(std::istream & i, Map& map)
 {
+	i.read((char*)&map._width, sizeof(map._width));
+	i.read((char*)&map._height, sizeof(map._height));
 	// TODO: insert return statement here
 	return i;
 }
