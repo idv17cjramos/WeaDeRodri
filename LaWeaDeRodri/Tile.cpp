@@ -2,10 +2,10 @@
 
 unsigned char Tile::_realTiles[TileEnumEnd] = 
 {
-	157, //Forest
+	176, //Forest
 	176, //Path
-	224, //Lava
-	247, //Water
+	176, //Lava
+	176, //Water
 	234, //Rock
 	254, //Treasure
 	154, //Merchant
