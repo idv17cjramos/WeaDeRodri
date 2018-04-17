@@ -3,6 +3,7 @@
 #include <queue>
 #include <string>
 #include "Tile.h"
+#include <fstream>
 class Map
 {
 public:
@@ -20,11 +21,14 @@ private:
 		class Point {
 		public:
 			Point(int xval, int yval);
+			Point operator-(Point other);
 			int x, y;
 		};
 		class Rect {
 		public:
-			Rect(int xval, int yval, int hval, int wval);
+			Rect();
+			Rect(int xval, int yval, int wval, int hval);
+			Rect(Rect* head);
 			int x, y, h, w;
 			Point center();
 			void drawPath(std::vector<Tile>& tmap, int w, Rect* other);
@@ -43,7 +47,9 @@ private:
 		};
 		class Room {
 		public:
-			Room(Rect* container);
+			Room(Rect* const& container);
+			Room(const Rect& container);
+			Room();
 			~Room();
 			Rect *rect = nullptr;
 		};
@@ -63,6 +69,8 @@ private:
 	} *_map = nullptr;
 	std::vector<Tile> _tiledMap;
 	int _width, _height;
+	friend std::ostream& operator<<(std::ostream& o, Map map);
+	friend std::istream& operator>>(std::istream& i, Map& map);
 };
 
 

@@ -13,8 +13,9 @@ public:
 	void SetTileType(TileType type);
 	TileStatus GetStatus() const;
 	TileType GetType() const;
+	Tile* left = nullptr, *right = nullptr, *up = nullptr, *down = nullptr;
 private:
-	TileType _tType;
+	TileType _tType = TileEnumEnd;
 	TileStatus _status;
 	static unsigned char _realTiles[TileEnumEnd];
 	static unsigned short _realColors[TileEnumEnd];

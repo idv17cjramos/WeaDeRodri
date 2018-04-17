@@ -11,7 +11,7 @@ public:
 	static bool GetKey(const Key& key);
 	static void Update();
 private:
-	static INPUT_RECORD _input[32];
+	static INPUT_RECORD _input[1000];
 	static HANDLE _inputHandle;
 	static bool _totalKeysState[Key::KeysEnd];//Representa el tamaño máximo del arreglo
 	static DWORD _eventsRead;

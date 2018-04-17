@@ -17,10 +17,10 @@ public:
 	void Init();
 	bool isInitialized();
 protected:
-	int _x, _y;
+	int _x = 0, _y = 0;
 	unsigned char* _tiles = nullptr;
 	unsigned short* _colors = nullptr;
-	size_t _xSize, _ySize;
+	size_t _xSize = 0, _ySize = 0;
 private:
 	bool _initialized = false;
 };

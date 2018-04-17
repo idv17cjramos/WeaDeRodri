@@ -5,17 +5,17 @@
 
 Entity::Entity()
 {
-	SimplePool::subscribe(this);//metes entidad
+
 }
 
 
 Entity::~Entity()
 {
-	SimplePool::deSubscribe(this);//quitas entidad
 }
 
 void Entity::draw()
 {
+	if (!_tiles || !_colors) return;
 	COORD pos;
 	HANDLE console = getConsoleHandle();
 	DWORD nonImportant;
@@ -26,15 +26,14 @@ void Entity::draw()
 			pos.X = _x + j;
 			pos.Y = _y + i;
 			if (pos.X < 0 || pos.Y < 0 ||
-				pos.X > Engine::getInstance()->getWidth() ||
-				pos.Y > Engine::getInstance()->getHeight())
+				pos.X > Engine::getInstance()->getWidth() - 2 ||
+				pos.Y > Engine::getInstance()->getHeight() - 2)
 				continue;
 			SetConsoleCursorPosition(console,pos);
 			SetConsoleTextAttribute(console, _colors[getAccessor(j, i, _xSize)]);
 			WriteConsole(console, &_tiles[getAccessor(j, i, _xSize)], 1, &nonImportant, NULL);
 		}
 	}
-
 }
 
 void Entity::setSprite(unsigned char * const & tiles, unsigned short * const & colors, const size_t & hSize, const size_t & vSize)
@@ -81,6 +80,7 @@ void Entity::destroy()
 
 void Entity::Init()
 {
+	SimplePool::subscribe(this);//metes entidad
 	start();
 	_initialized = true;
 }

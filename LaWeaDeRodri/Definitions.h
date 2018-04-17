@@ -121,9 +121,9 @@ typedef enum Key {
 enum TileType {
 	Forest,
 	Path,
-	Rock,
 	Lava,
 	Water,
+	Rock,
 	Treasure,
 	Merchant,
 	Boss,

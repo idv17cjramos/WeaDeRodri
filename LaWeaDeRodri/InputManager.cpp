@@ -1,7 +1,7 @@
 #include "InputManager.h"
 
 
-INPUT_RECORD InputManager::_input[32];
+INPUT_RECORD InputManager::_input[1000];
 HANDLE InputManager::_inputHandle = nullptr;
 bool InputManager::_totalKeysState[Key::KeysEnd];
 DWORD InputManager::_eventsRead;
@@ -72,5 +72,5 @@ void InputManager::Update()
 	if (!_inputHandle) _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
 	GetNumberOfConsoleInputEvents(_inputHandle, &_eventsRead);
 	if (_eventsRead)
-		ReadConsoleInput(_inputHandle, _input, 32, &_eventsRead);
+		ReadConsoleInput(_inputHandle, _input, 1000, &_eventsRead);
 }

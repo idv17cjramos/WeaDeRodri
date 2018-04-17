@@ -4,9 +4,9 @@ unsigned char Tile::_realTiles[TileEnumEnd] =
 {
 	157, //Forest
 	176, //Path
-	234, //Rock
 	224, //Lava
 	247, //Water
+	234, //Rock
 	254, //Treasure
 	154, //Merchant
 	158 //Boss
@@ -15,9 +15,9 @@ unsigned short Tile::_realColors[TileEnumEnd] =
 {
 	LetterColor::GREEN | BackgroundColor::BBLACK,
 	LetterColor::WHITE | BackgroundColor::BBLACK,
-	LetterColor::DARKYELLOW | BackgroundColor::BBLACK,
 	LetterColor::RED | BackgroundColor::BBLACK,
-	LetterColor::BLUE | BackgroundColor::BCYAN,
+	LetterColor::BLUE | BackgroundColor::BBLACK,
+	LetterColor::DARKYELLOW | BackgroundColor::BBLACK,
 	LetterColor::YELLOW | BackgroundColor::BBLACK,
 	LetterColor::MAGENTA | BackgroundColor::BBLACK,
 	LetterColor::DARKRED | BackgroundColor::BBLACK,
@@ -47,8 +47,12 @@ void Tile::SetStatus(TileStatus status)
 
 void Tile::SetTileType(TileType type)
 {
-	if (TileType::TileEnumEnd == type) return;
 	_tType = type;
+	if (TileType::TileEnumEnd == type)
+	{
+		setSprite(nullptr, nullptr, 1, 1);
+		return;
+	}
 	setSprite(&_realTiles[type], &_realColors[type], 1, 1);
 }
 
