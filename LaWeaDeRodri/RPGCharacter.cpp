@@ -20,8 +20,8 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
 	_level = 1;
 	_experience = 0;
 	_maxSkills = 0;
-	_hp = _basehp;
-	_mp = _basemp;
+	_hp = _maxHP = _basehp;
+	_mp = _maxMP = _basemp;
 	_defense = _baseDefense;
 	_nextLevelExperience = 10;
 	_class = classT;
@@ -30,24 +30,33 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
 	{
 		//TODO: llenar tabla de saltos
 	case Warrior:
+		_skills = new Skill[RPGWarriorSkillsEnumEnd];
 		break;
 	case Paladin:
+		_skills = new Skill[RPGPaladinSkillsEnumEnd];
 		break;
 	case Barbarian:
+		_skills = new Skill[RPGBarbarianSkillsEnumEnd];
 		break;
 	case Archer:
+		_skills = new Skill[RPGArcherSkillsEnumEnd];
 		break;
 	case Thief:
+		_skills = new Skill[RPGThiefSkillsEnumEnd];
 		break;
 	case Priest:
+		_skills = new Skill[RPGPriestSkillsEnumEnd];
 		break;
 	case Mage:
+		_skills = new Skill[RPGMageSkillsEnumEnd];
 		break;
 	case Summoner:
+		_skills = new Skill[RPGSummonerSkillsEnumEnd];
 		break;
 	default:
 		break;
 	}
+	_skills[0] = { SkillFunctions::Attack, 1, 0, "Attack", Attributes{Element::ElementNone, Physical::Blunt} };
 	for (int i = 0; i < lvl; ++i)
 		LevelUp();
 }
@@ -71,8 +80,8 @@ void RPGCharacter::UseSkill(RPGCharacter & other, size_t skillNum)
 {
 	if (_skills[skillNum].mpUsage > _mp)
 		return;
-	other.Damage(_skills[skillNum].skillFunc(_stats, other.getDefense(),
-		_skills[skillNum].skillPoint, other.GetAffinities()));
+	other.Damage(_skills[skillNum].skillFunc(_stats, _skills[skillNum].skillPoint,
+		other.GetAffinities(), _skills[skillNum].attrib));
 	UseMp(_skills[skillNum].mpUsage);
 }
 
@@ -239,12 +248,14 @@ size_t RPGCharacter::GetSkillAmmount()
 
 void RPGCharacter::Damage(int damage)
 {
-	_hp -= damage;
+	if (damage > 0)
+		damage *= (1 / (float)_defense) + .3f;
+	_hp -= _hp - damage <= _maxHP ? damage : _maxHP - _hp;
 }
 
 void RPGCharacter::UseMp(int mpDamage)
 {
-	_mp -= mpDamage;
+	_mp -= _mp - mpDamage <= _maxMP ? mpDamage : _maxMP - _mp;
 }
 
 bool RPGCharacter::isAlive()

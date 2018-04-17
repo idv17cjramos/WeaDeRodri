@@ -9,7 +9,7 @@ struct Attributes;
 struct Affinities;
 struct Stats;
 
-typedef int(*AttackSkill)(Stats stats, size_t defense, size_t skillPoints, Affinities targetAffin);
+typedef int(*AttackSkill)(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib);
 
 typedef struct Attributes {
 	Element elements;
@@ -81,7 +81,9 @@ private:
 			_hpBaseIncrement,
 			_mpBaseIncrement;
 	int		_hp,
-			_mp;
+			_mp,
+			_maxHP,
+			_maxMP;
 	Stats _stats;
 	RPGClass _class;
 	Skill *_skills;

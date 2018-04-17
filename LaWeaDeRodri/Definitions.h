@@ -151,42 +151,49 @@ enum RPGClass {
 
 enum RPGWarriorSkills
 {
-
+	WarriorAttack,
 	RPGWarriorSkillsEnumEnd,
 };
 
 enum RPGPaladinSkills
 {
+	PaladinAttack,
 	RPGPaladinSkillsEnumEnd,
 };
 
 enum RPGBarbarianSkills 
 {
+	BarbarianAttack,
 	RPGBarbarianSkillsEnumEnd,
 };
 
 enum RPGArcherSkills 
 {
+	ArcherAttack,
 	RPGArcherSkillsEnumEnd,
 };
 
 enum RPGThiefSkills
 {
+	ThiefAttack,
 	RPGThiefSkillsEnumEnd,
 };
 
 enum RPGPriestSkills
 {
+	PriestAttack,
 	RPGPriestSkillsEnumEnd,
 };
 
 enum RPGMageSkills
 {
+	MageAttack,
 	RPGMageSkillsEnumEnd,
 };
 
 enum RPGSummonerSkills
 {
+	SummonerAttack,
 	RPGSummonerSkillsEnumEnd,
 };
 
