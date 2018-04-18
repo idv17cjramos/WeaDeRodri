@@ -6,6 +6,7 @@ Window::Window()
 {
 	_x = _y = _width = _height = 0;
 	_isActive = false;
+	_blockInput = true;
 }
 
 
@@ -109,4 +110,9 @@ void Window::SetBackgroundColor(const BackgroundColor & color)
 void Window::SetLetterColor(const LetterColor & color)
 {
 	_letterColor = color;
+}
+
+void Window::SetBlockInput(bool _input)
+{
+	_blockInput = _input;
 }

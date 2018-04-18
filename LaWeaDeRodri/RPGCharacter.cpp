@@ -71,7 +71,7 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _ski
 		break;
 	}
 	_skills[0] = { SkillFunctions::Attack, 1, 0, "Attack", Attributes{Element::ElementNone, Physical::Blunt} };
-	for (int i = 0; i < lvl; ++i)
+	for (int i = 1; i < lvl; ++i)
 		LevelUp();
 }
 

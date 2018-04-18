@@ -21,6 +21,8 @@ void TextWindow::draw()
 	HANDLE console = getConsoleHandle();
 	int linesToDraw = (_currentLetter / _maxLineWidth) + 1;//division +1 * residuo
 	pos.X = (SHORT)_x + 1;//te vas a parar para escribir en pos del objeto +1 en x
+	if ((_maxLineWidth * _height) >= _string.size() && _string.size() <= _speed)
+		_currentLetter = _string.size();
 	for (int j = _scrollLine * _maxLineWidth, i = 0; j < _currentLetter; ++j)
 	{
 		if (!(j%_maxLineWidth) && j != _scrollLine * _maxLineWidth)
@@ -28,7 +30,7 @@ void TextWindow::draw()
 			++i;
 			pos.X = (SHORT)_x + 1;
 		}
-		if (i >= _maxScrollLines - 1) break;
+		if (i >= _maxScrollLines - 1 && !(_maxLineWidth * _height) >= _string.size()) break;
 		pos.Y = (SHORT)_y + 1 + (SHORT)i;
 		++pos.X;
 		SetConsoleCursorPosition(console, pos);
@@ -52,7 +54,10 @@ void TextWindow::update()
 	GetNumberOfConsoleInputEvents(GetStdHandle(STD_INPUT_HANDLE), &numInputRead);
 	if (numInputRead)//el nuemro de inputs
 	{
-		ReadConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);//agarra std input handle, va a ver cuantos inputs lee, almacena ciert numero,almacena los inputs, no el numerod e inpuits
+		if (_blockInput)
+			ReadConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);//agarra std input handle, va a ver cuantos inputs lee, almacena ciert numero,almacena los inputs, no el numerod e inpuits
+		else
+			PeekConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);
 		for (DWORD i = 0; i < numInputRead; ++i)
 		{
 			if (_input[i].EventType == KEY_EVENT)//ve el key que est[a apretado y hasce algo 

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "State.h"
 #include "Map.h"
 #include "MenuWindow.h"
@@ -15,4 +16,9 @@ public:
 	void End() override;
 private:
 	TextWindow * tw = nullptr;
+	MenuWindow * mw = nullptr;
+	bool startPressed = false, nameEntered = false,
+		newGame = false, ngChosen = false, selMenuSetup = false;
+	std::string name, msg;
+	RPGClass cls;
 };

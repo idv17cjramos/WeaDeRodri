@@ -120,15 +120,11 @@ void Engine::setMenuWindowActive(const bool & value)
 
 void Engine::setTextWindow(TextWindow* const& val)
 {
-	if (_windows[0])
-		delete _windows[0];
 	_windows[0] = val;
 }
 
 void Engine::setMenuWindow(MenuWindow* const& val)
 {
-	if (_windows[1])
-		delete _windows[1];
 	_windows[1] = val;
 }
 

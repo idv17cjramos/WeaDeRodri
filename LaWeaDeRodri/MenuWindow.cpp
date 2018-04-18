@@ -18,7 +18,10 @@ void MenuWindow::update()
 	GetNumberOfConsoleInputEvents(GetStdHandle(STD_INPUT_HANDLE), &numInputRead);
 	if (numInputRead)//el nuemro de inputs
 	{
-		ReadConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);//agarra std input handle, va a ver cuantos inputs lee, almacena ciert numero,almacena los inputs, no el numerod e inpuits
+		if (_blockInput)
+			ReadConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);//agarra std input handle, va a ver cuantos inputs lee, almacena ciert numero,almacena los inputs, no el numerod e inpuits
+		else
+			PeekConsoleInput(GetStdHandle(STD_INPUT_HANDLE), _input, 32, &numInputRead);
 		for (DWORD i = 0; i < numInputRead; ++i)
 		{
 			if (_input[i].EventType == KEY_EVENT)//ve el key que est[a apretado y hasce algo 
@@ -57,7 +60,10 @@ void MenuWindow::draw()
 	HANDLE console = getConsoleHandle();
 	unsigned short attribs;
 	int spacingBetweenItems = (int)(_height - 3) / (int)_menuItems.size();
-	pos.Y = (SHORT)_y + (SHORT)spacingBetweenItems;
+	if (spacingBetweenItems < 1)
+		pos.Y = (SHORT)_y + ((SHORT)spacingBetweenItems + 1);
+	else
+		pos.Y = (SHORT)_y + (SHORT)spacingBetweenItems;
 	size_t item = 0;
 	for (auto &i : _menuItems)
 	{
@@ -75,7 +81,10 @@ void MenuWindow::draw()
 			attribs = _letterColor | _backgroundColor;
 		SetConsoleTextAttribute(console, attribs);
 		WriteConsole(console, i.data(), (DWORD)i.length(), &nonImportant, NULL);
-		pos.Y += (SHORT)spacingBetweenItems;
+		if (spacingBetweenItems < 1)
+			pos.Y += ((SHORT)spacingBetweenItems + 1);
+		else
+			pos.Y += (SHORT)spacingBetweenItems;
 		++item;
 	}
 }
@@ -119,11 +128,14 @@ MenuWindow::MenuItem MenuWindow::GetCursorSelection()
 {
 	int j = 0;
 	std::string retVal;
+	if (_menuItems.size() == 0)
+		return MenuItem{ false, "", 0 };
 	for (auto &i : _menuItems)
 	{
 		if (j == _selectedItem)
 		{
 			retVal = i;
+			break;
 		}
 		++j;
 	}

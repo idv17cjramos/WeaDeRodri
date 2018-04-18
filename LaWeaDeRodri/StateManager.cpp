@@ -22,6 +22,7 @@ void StateManager::EndState()
 	if (!_stateStack.empty())
 	{
 		_stateStack.top()->End();
+		delete _stateStack.top();
 		_stateStack.pop();
 	}
 }
@@ -29,7 +30,5 @@ void StateManager::EndState()
 void StateManager::Update()
 {
 	if (!_stateStack.empty())
-	{
 		_stateStack.top()->Update();
-	}
 }

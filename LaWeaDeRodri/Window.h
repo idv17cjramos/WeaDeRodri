@@ -14,12 +14,14 @@ public:
 	void SetActive(const bool& value);
 	void SetBackgroundColor(const BackgroundColor& color);
 	void SetLetterColor(const LetterColor& color);
+	void SetBlockInput(bool _input);
 protected:
 	size_t _x, _y, _width, _height;
 	BackgroundColor _backgroundColor;
 	LetterColor _letterColor;
 	bool _isActive;
 	INPUT_RECORD _input[32];//32 para no tener tantos inputs
+	bool _blockInput;
 private:
 	const unsigned char borders[6]{ 187, 188, 200, 201, 186, 205 };
 	enum {
