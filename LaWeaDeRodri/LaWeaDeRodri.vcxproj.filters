@@ -66,6 +66,15 @@
     <ClInclude Include="Skills.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RPGBattleState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticVariables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -117,6 +126,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RPGBattleState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticVariables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

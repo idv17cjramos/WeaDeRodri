@@ -1,6 +1,1 @@
-﻿  RPGCharacter.cpp
-c:\users\komo97\documents\github\weaderodri\laweaderodri\rpgcharacter.cpp(306): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\rpgcharacter.cpp(489): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\rpgcharacter.cpp(490): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\rpgcharacter.cpp(493): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
+﻿  LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe

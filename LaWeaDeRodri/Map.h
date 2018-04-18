@@ -14,6 +14,8 @@ public:
 	void SaveMapToFile(std::string path);
 	Tile getTileAt(size_t x, size_t y) const;
 	void setPlayerPositon(int x, int y);
+	int getLivingBosses();
+	void KillBoss();
 private:
 	void LoadFromFile(std::string path);
 	class Tree {

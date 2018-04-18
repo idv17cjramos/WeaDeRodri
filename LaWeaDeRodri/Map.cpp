@@ -4,6 +4,8 @@
 #include "HelperFunctions.h"
 #include "Engine.h"
 
+int _livingBosses;
+
 Map::Map(int w, int h, float ratioW, float ratioH, int iterations)
 {
 	_width = w;
@@ -28,7 +30,7 @@ Map::Map(std::string path)
 
 Map::~Map()
 {
-
+	
 }
 
 void Map::drawMap()
@@ -58,6 +60,16 @@ void Map::setPlayerPositon(int x, int y)
 		for (int j = 0; j < _width; ++j)
 			_tiledMap[getAccessor(j, i, _width)].setXY(j + x, i + y);
 	
+}
+
+int Map::getLivingBosses()
+{
+	return _livingBosses;
+}
+
+void Map::KillBoss()
+{
+	--_livingBosses;
 }
 
 void Map::LoadFromFile(std::string path)
@@ -315,6 +327,7 @@ void Map::Tree::populate(std::vector<Tile>& tmap, int w)
 	{
 		tmap[getAccessor(randomRange(i.rect->x, i.rect->x + i.rect->w),
 			randomRange(i.rect->y, i.rect->y + i.rect->h), w)].SetTileType(TileType::Boss);
+		++_livingBosses;
 	}
 }
 

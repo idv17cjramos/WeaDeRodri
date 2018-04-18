@@ -77,8 +77,8 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _ski
 
 RPGCharacter::RPGCharacter(std::string filePath)
 {
-	std::fstream file("Save/" + _name + ".dat", std::ios::in);
-	int cls, stre, strp, wke, wkp;
+	std::fstream file("Save/" + filePath + ".dat", std::ios::in);
+	int cls = 0, stre = 0, strp = 0, wke = 0, wkp = 0;
 	file >> _name >> cls >> _level >> _experience >>
 		_nextLevelExperience >> _defense >> _maxSkills >>
 		_maxSkillsCap >> _hp >> _mp >> _maxHP >>
