@@ -21,5 +21,6 @@ private:
 	Tile* player;
 	int pX = 0, pY = 0, realPY, realPX;
 	int screenW, screenH;
+	int stepsTaken = 0, stepsToNextFight;
 };
 
