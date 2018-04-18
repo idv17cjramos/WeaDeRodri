@@ -1,4 +1,3 @@
 ﻿  Map.cpp
-c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(360): warning C4312: 'type cast': conversion from 'int' to 'char *' of greater size
-c:\users\komo97\documents\github\weaderodri\laweaderodri\map.cpp(361): warning C4312: 'type cast': conversion from 'int' to 'char *' of greater size
-  LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
+  LaWeaDeRodri.vcxproj -> C:\Users\royra\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
+  LaWeaDeRodri.vcxproj -> C:\Users\royra\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.pdb (Partial PDB)

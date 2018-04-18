@@ -42,7 +42,7 @@ void Map::drawMap()
 
 void Map::SaveMapToFile(std::string path)
 {
-	std::fstream elArchivo(path,std::ios::binary | std::ios::out | std::ios::trunc);
+	std::fstream elArchivo(path,std::ios::out | std::ios::trunc);
 	elArchivo << *this;
 }
 
@@ -62,7 +62,7 @@ void Map::setPlayerPositon(int x, int y)
 
 void Map::LoadFromFile(std::string path)
 { 
-	std::fstream elArchivo(path, std::ios::binary | std::ios::in);
+	std::fstream elArchivo(path, std::ios::in);
 	elArchivo >> *this;
 }
 
@@ -355,18 +355,58 @@ Map::Tree::Room::~Room()
 		delete rect;
 }
 
-std::ostream & operator<<(std::ostream & o, Map map)
+std::ostream & operator<<(std::ostream & o, Map& map)
 {
-	o.write((char*)map._width, sizeof(map._width));
-	o.write((char*)map._height, sizeof(map._height));
-	//TODO: vas rodri
+	//o.write((char*)((size_t)map._width), sizeof(int));
+	//o.write((char*)((size_t)map._height), sizeof(int));
+	o << map._width << " " << map._height << " ";
+	for (auto &i : map._tiledMap)
+	{
+		//o.write((char*)i.GetType(), sizeof(TileType));
+		//o.write((char*)i.getX(), sizeof(int));
+		//o.write((char*)i.getY(), sizeof(int));
+		o << (int)i.GetType() << " " << i.getX() << " " << i.getY() << " ";
+	}
 	return o;
 }
 
 std::istream & operator>>(std::istream & i, Map& map)
 {
-	i.read((char*)&map._width, sizeof(map._width));
-	i.read((char*)&map._height, sizeof(map._height));
+	//i.read((char*)&map._width, sizeof(int));
+	//i.read((char*)&map._height, sizeof(int));
+	i >> map._width >> map._height;
+	for (int j = 0; j < map._width * map._height; ++j)
+	{
+		int t;
+		int x, y;
+		i >> t >> x >> y;
+		//i.read((char*)&t, sizeof(TileType));
+		//i.read((char*)&x, sizeof(int));
+		//i.read((char*)&y, sizeof(int));
+		map._tiledMap.push_back(Tile((TileType)t));
+		map._tiledMap[j].setXY(x, y);
+	}
+	for (int j = 0; j < map._height; ++j)
+		for (int k = 0; k < map._width; ++k)
+		{
+			size_t accessor = getAccessor((size_t)k, (size_t)j, map._width);
+			if (k - 1 > 0)
+				map._tiledMap[accessor].left = &map._tiledMap[getAccessor((size_t)k - 1, (size_t)j, map._width)];
+			else
+				map._tiledMap[accessor].left = new Tile(TileType::TileEnumEnd);
+			if (k + 1 < map._width)
+				map._tiledMap[accessor].right = &map._tiledMap[getAccessor((size_t)k + 1, (size_t)j, map._width)];
+			else
+				map._tiledMap[accessor].right = new Tile(TileType::TileEnumEnd);
+			if (k - 1 > 0)
+				map._tiledMap[accessor].up = &map._tiledMap[getAccessor((size_t)k, (size_t)j - 1, map._width)];
+			else
+				map._tiledMap[accessor].up = new Tile(TileType::TileEnumEnd);
+			if (k + 1 < map._height)
+				map._tiledMap[accessor].down = &map._tiledMap[getAccessor((size_t)k, (size_t)j + 1, map._width)];
+			else
+				map._tiledMap[accessor].down = new Tile(TileType::TileEnumEnd);
+		}
 	// TODO: insert return statement here
 	return i;
 }

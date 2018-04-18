@@ -1,9 +1,10 @@
+#include "HelperFunctions.h"
 #include "Skills.h"
 #include "RPGCharacter.h"
 
 int SkillFunctions::Attack(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
 {
-	int damage = stats.strength * 4 * (int)skillPoints;
+	int damage = stats.strength * 4 * ((float)1 / (2.2f / (float)skillPoints));
 	if (sourceAttrib.phys & Physical::Blunt && targetAffin.weakness.phys & Physical::Blunt)
 		damage *= 1.5f;
 	else if (sourceAttrib.phys & Physical::Blunt && targetAffin.strength.phys & Physical::Blunt)
@@ -16,5 +17,6 @@ int SkillFunctions::Attack(Stats stats, size_t skillPoints, Affinities targetAff
 		damage *= 1.5f;
 	else if (sourceAttrib.phys & Physical::Thrust && targetAffin.strength.phys & Physical::Thrust)
 		damage *= .5f;
+	damage *= randomRange(0, 150) < stats.luck ? 1.5f : 1;
 	return damage;
 }

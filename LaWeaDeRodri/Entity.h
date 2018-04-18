@@ -11,6 +11,8 @@ public:
 	void setX(const int& x);
 	void setY(const int& y);
 	void setXY(const int& x, const int& y);
+	int getX();
+	int getY();
 	virtual void start();
 	virtual void update();
 	virtual void destroy();

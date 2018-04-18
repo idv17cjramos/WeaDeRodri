@@ -69,7 +69,7 @@ private:
 	} *_map = nullptr;
 	std::vector<Tile> _tiledMap;
 	int _width, _height;
-	friend std::ostream& operator<<(std::ostream& o, Map map);
+	friend std::ostream& operator<<(std::ostream& o, Map& map);
 	friend std::istream& operator>>(std::istream& i, Map& map);
 };
 

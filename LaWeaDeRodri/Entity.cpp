@@ -66,6 +66,16 @@ void Entity::setXY(const int & x, const int & y)
 	_y = y;
 }
 
+int Entity::getX()
+{
+	return _x;
+}
+
+int Entity::getY()
+{
+	return _y;
+}
+
 void Entity::start()
 {
 }

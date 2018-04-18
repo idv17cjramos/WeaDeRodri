@@ -2,17 +2,18 @@
 #include "HelperFunctions.h"
 #include "Skills.h"
 
-Stats RPGCharacter::_classStats[RPGClass::RPGClassEnumEnd] = 
+Stats RPGCharacter::_classStats[RPGClass::RPGClassEnumEnd] = /*Rellenando  un arreglo de stats con una inicialización de arreglo. Con esto llenas de madrazo el arreglo.
+															lo rellenas con un inicializador de una estructura.*/			
 {
 	//TODO: Llenar los stats iniciales.
-	Stats{}, //Warrior
-	Stats{}, //Paladin
-	Stats{}, //Barbarian
-	Stats{}, //Archer
-	Stats{}, //Thief
-	Stats{}, //Priest
-	Stats{}, //Mage
-	Stats{}, //Summoner
+	Stats{5,9,5,9,3}, //Warrior
+	Stats{6,5,4,7,10}, //Paladin
+	Stats{6,4,6,6,7}, //Barbarian
+	Stats{1,4,8,9,3}, //Archer
+	Stats{2,4,7,1,8}, //Thief
+	Stats{4,4,6,5,5}, //Priest
+	Stats{8,3,8,10,8}, //Mage
+	Stats{7,10,9,1,4}, //Summoner
 };
 
 RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
@@ -30,27 +31,35 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
 	{
 		//TODO: llenar tabla de saltos
 	case Warrior:
+		_maxSkillsCap = RPGWarriorSkillsEnumEnd;
 		_skills = new Skill[RPGWarriorSkillsEnumEnd];
 		break;
 	case Paladin:
+		_maxSkillsCap = RPGPaladinSkillsEnumEnd;
 		_skills = new Skill[RPGPaladinSkillsEnumEnd];
 		break;
 	case Barbarian:
+		_maxSkillsCap = RPGBarbarianSkillsEnumEnd;
 		_skills = new Skill[RPGBarbarianSkillsEnumEnd];
 		break;
 	case Archer:
+		_maxSkillsCap = RPGArcherSkillsEnumEnd;
 		_skills = new Skill[RPGArcherSkillsEnumEnd];
 		break;
 	case Thief:
+		_maxSkillsCap = RPGThiefSkillsEnumEnd;
 		_skills = new Skill[RPGThiefSkillsEnumEnd];
 		break;
 	case Priest:
+		_maxSkillsCap = RPGPriestSkillsEnumEnd;
 		_skills = new Skill[RPGPriestSkillsEnumEnd];
 		break;
 	case Mage:
+		_maxSkillsCap = RPGMageSkillsEnumEnd;
 		_skills = new Skill[RPGMageSkillsEnumEnd];
 		break;
 	case Summoner:
+		_maxSkillsCap = RPGSummonerSkillsEnumEnd;
 		_skills = new Skill[RPGSummonerSkillsEnumEnd];
 		break;
 	default:
@@ -151,7 +160,10 @@ void RPGCharacter::EquipLegs(RPGItem item)
 void RPGCharacter::EquipWeapon(RPGItem item)
 {
 	if (item.getType() == RPGItemType::Weapon)
+	{
 		_weapon = RPGItem(item);
+		_skills[0].attrib.phys = (Physical)item.getValue();
+	}
 }
 
 void RPGCharacter::AddItem(RPGItem item)
@@ -276,31 +288,112 @@ Affinities RPGCharacter::GetAffinities()
 void RPGCharacter::LevelUp()
 {
 	++_level;
-	int statPointsRemaining = 5;
-	for (int i = 0; i < statPointsRemaining; ++i)
+	for (int i = 0; i < _statsPerLevel; ++i)
 	{
 		int randomSelector = randomRange(0, 100);
 		switch (_class)
 		{
-			//TODO: asignar prioridades de stats.
 		case Warrior:
+			if (randomSelector < 33)
+				++_stats.strength;
+			else if (randomSelector < 66)
+				++_stats.stamina;
+			else if (randomSelector < 75)
+				++_stats.dexterity;
+			else if (randomSelector < 85)
+				++_stats.luck;
+			else if (randomSelector < 100)
+				++_stats.intelligence;
 			break;
-		case Paladin:
+		case Paladin://stam,int,str,luk,dex
+			if (randomSelector < 30)
+				++_stats.stamina;
+			else if (randomSelector < 60)
+				++_stats.intelligence;
+			else if (randomSelector < 80)
+				++_stats.strength;
+			else if (randomSelector < 90)
+				++_stats.luck;
+			else if (randomSelector < 100)
+				++_stats.dexterity;
 			break;
-		case Barbarian:
+		case Barbarian://str,lck,dex,stam,int
+			if (randomSelector < 50)
+				++_stats.strength;
+			else if (randomSelector < 70)
+				++_stats.luck;
+			else if (randomSelector < 80)
+				++_stats.dexterity;
+			else if (randomSelector < 90)
+				++_stats.stamina;
+			else if (randomSelector < 100)
+				++_stats.intelligence;
 			break;
-		case Archer:
+		case Archer://dex,lck,int,str,stmn
+			if (randomSelector < 33)
+				++_stats.dexterity;
+			else if (randomSelector < 66)
+				++_stats.luck;
+			else if (randomSelector < 80)
+				++_stats.intelligence;
+			else if (randomSelector < 90)
+				++_stats.strength;
+			else if (randomSelector < 100)
+				++_stats.stamina;
 			break;
-		case Thief:
+		case Thief://lck,dex,stm,int,str
+			if (randomSelector < 50)
+				++_stats.luck;
+			else if (randomSelector < 80)
+				++_stats.dexterity;
+			else if (randomSelector < 90)
+				++_stats.stamina;
+			else if (randomSelector < 95)
+				++_stats.intelligence;
+			else if (randomSelector < 100)
+				++_stats.strength;
 			break;
-		case Priest:
+		case Priest://stm,int,lck,dex,str
+			if (randomSelector < 33)
+				++_stats.stamina;
+			else if (randomSelector < 66)
+				++_stats.intelligence;
+			else if (randomSelector < 80)
+				++_stats.luck;
+			else if (randomSelector < 90)
+				++_stats.dexterity;
+			else if (randomSelector < 100)
+				++_stats.strength;
 			break;
-		case Mage:
+		case Mage://int,lck,dex,str,stm
+			if (randomSelector < 40)
+				++_stats.intelligence;
+			else if (randomSelector < 70)
+				++_stats.luck;
+			else if (randomSelector < 80)
+				++_stats.dexterity;
+			else if (randomSelector < 90)
+				++_stats.strength;
+			else if (randomSelector < 100)
+				++_stats.stamina;
 			break;
-		case Summoner:
+		case Summoner://int,dex,lck,stm,str=
+			if (randomSelector < 33)
+				++_stats.intelligence;
+			else if (randomSelector < 60)
+				++_stats.dexterity;
+			else if (randomSelector < 80)
+				++_stats.luck;
+			else if (randomSelector < 90)
+				++_stats.stamina; 
+			else if (randomSelector < 100)
+				++_stats.strength;
 			break;
 		}
 	}
-	//TODO: Refreshear mp y hp con respecto a los stats mas incremento base. 
-	//TODO: Desbloquear habilidades a ciertos niveles en especifico.
+	_maxHP = _hp = _basehp + (10 * _stats.stamina);
+	_maxMP = _mp = _basemp + (5 * _stats.intelligence);
+	_maxSkills += !(_level % _skillStep) && _maxSkills < _maxSkillsCap ? 1 : 0;
+	for (int i = 0; i < _skillPointsPerLevel; ++i)
+		AddSkillPoint(randomRange(0, _maxSkills + 1));
 }

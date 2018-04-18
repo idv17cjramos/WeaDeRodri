@@ -64,7 +64,6 @@ public:
 	std::string GetEquipmentDescription(RPGItemType index) const;
 	void ConsumeItem(size_t index);
 	void AddExperience(size_t exp);
-	void AddSkillPoint(size_t skillNum);
 	std::string GetSkillName(size_t skillNum);
 	size_t GetSkillAmmount();
 	void Damage(int damage);
@@ -78,6 +77,7 @@ private:
 			_nextLevelExperience,
 			_defense,
 			_maxSkills,
+			_maxSkillsCap,
 			_hpBaseIncrement,
 			_mpBaseIncrement;
 	int		_hp,
@@ -96,6 +96,8 @@ private:
 	std::vector<RPGItem> _inventory;
 	void LevelUp();
 	const int _baseDefense = 5, _basehp = 20, _basemp = 5;
+	const int _skillStep = 4, _statsPerLevel = 5, _skillPointsPerLevel = 1;
 	static Stats _classStats[RPGClass::RPGClassEnumEnd];
+	void AddSkillPoint(size_t skillNum);
 };
 
