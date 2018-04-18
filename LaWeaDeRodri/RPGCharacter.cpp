@@ -15,6 +15,7 @@ Stats RPGCharacter::_classStats[RPGClass::RPGClassEnumEnd] = /*Rellenando  un ar
 	Stats{8,3,8,10,8}, //Mage
 	Stats{7,10,9,1,4}, //Summoner
 };
+std::string RPGCharacter::_outString;
 
 RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _skills(nullptr)
 {
@@ -28,6 +29,9 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _ski
 	_class = classT;
 	_stats = _classStats[classT];
 	_name = name;
+	_ferrum = 0;
+	_afin.strength = { Element::ElementNone, Physical::PhysicalNone };
+	_afin.weakness = { Element::ElementNone, Physical::PhysicalNone };
 	switch (_class)
 	{
 		//TODO: llenar tabla de saltos
@@ -88,25 +92,63 @@ RPGCharacter::RPGCharacter(std::string filePath)
 	_afin.weakness.elements = (Element)wke;
 	_afin.weakness.phys = (Physical)wkp;
 
-	//Se queda hasta aqui.
-	file << _head.getName() << " " << _head.getType() <<
-		" " << _head.getUsage() << " " << _head.getValue() <<
-		" " << _head.getDescription() << " ";
-	file << _chest.getName() << " " << _chest.getType() <<
-		" " << _chest.getUsage() << " " << _chest.getValue() <<
-		" " << _chest.getDescription() << " ";
-	file << _boots.getName() << " " << _boots.getType() <<
-		" " << _boots.getUsage() << " " << _boots.getValue() <<
-		" " << _boots.getDescription() << " ";
-	file << _weapon.getName() << " " << _weapon.getType() <<
-		" " << _weapon.getUsage() << " " << _weapon.getValue() <<
-		" " << _weapon.getDescription() << " ";
-	file << _inventory.size() << " ";
-	for (auto &i : _inventory)
-		file << i.getName() << " " << i.getType() <<
-		" " << i.getUsage() << " " << i.getValue() <<
-		" " << i.getDescription() << " ";
+	int type, usage, value;
+	std::string name, description;
+	file >> name >> type >> usage >> value >> description;
+	EquipHead(RPGItem((RPGItemType)type, (RPGItemUsageType)usage, name, value, description));
+	file >> name >> type >> usage >> value >> description;
+	EquipChest(RPGItem((RPGItemType)type, (RPGItemUsageType)usage, name, value, description));
+	file >> name >> type >> usage >> value >> description;
+	EquipLegs(RPGItem((RPGItemType)type, (RPGItemUsageType)usage, name, value, description));
+	file >> name >> type >> usage >> value >> description;
+	EquipWeapon(RPGItem((RPGItemType)type, (RPGItemUsageType)usage, name, value, description));
+	int invSize = 0;
+	file >> invSize;
+	for (int i = 0; i < invSize; ++i)
+	{
+		file >> name >> type >> usage >> value >> description;
+		AddItem(RPGItem((RPGItemType)type, (RPGItemUsageType)usage, name, value, description));
+	}
 	file.close();
+	switch (_class)
+	{
+		//TODO: llenar tabla de saltos
+	case Warrior:
+		_maxSkillsCap = RPGWarriorSkillsEnumEnd;
+		_skills = new Skill[RPGWarriorSkillsEnumEnd];
+		break;
+	case Paladin:
+		_maxSkillsCap = RPGPaladinSkillsEnumEnd;
+		_skills = new Skill[RPGPaladinSkillsEnumEnd];
+		break;
+	case Barbarian:
+		_maxSkillsCap = RPGBarbarianSkillsEnumEnd;
+		_skills = new Skill[RPGBarbarianSkillsEnumEnd];
+		break;
+	case Archer:
+		_maxSkillsCap = RPGArcherSkillsEnumEnd;
+		_skills = new Skill[RPGArcherSkillsEnumEnd];
+		break;
+	case Thief:
+		_maxSkillsCap = RPGThiefSkillsEnumEnd;
+		_skills = new Skill[RPGThiefSkillsEnumEnd];
+		break;
+	case Priest:
+		_maxSkillsCap = RPGPriestSkillsEnumEnd;
+		_skills = new Skill[RPGPriestSkillsEnumEnd];
+		break;
+	case Mage:
+		_maxSkillsCap = RPGMageSkillsEnumEnd;
+		_skills = new Skill[RPGMageSkillsEnumEnd];
+		break;
+	case Summoner:
+		_maxSkillsCap = RPGSummonerSkillsEnumEnd;
+		_skills = new Skill[RPGSummonerSkillsEnumEnd];
+		break;
+	default:
+		break;
+	}
+	_skills[0] = { SkillFunctions::Attack, 1, 0, "Attack", Attributes{ Element::ElementNone, Physical::Blunt } };
 }
 
 RPGCharacter::~RPGCharacter()
@@ -124,13 +166,14 @@ void RPGCharacter::Update()
 	}
 }
 
-void RPGCharacter::UseSkill(RPGCharacter & other, size_t skillNum)
+std::string RPGCharacter::UseSkill(RPGCharacter & other, size_t skillNum)
 {
 	if (_skills[skillNum].mpUsage > _mp)
-		return;
+		return "Insufficient MP.";
 	other.Damage(_skills[skillNum].skillFunc(_stats, _skills[skillNum].skillPoint,
 		other.GetAffinities(), _skills[skillNum].attrib));
 	UseMp(_skills[skillNum].mpUsage);
+	return _outString;
 }
 
 size_t RPGCharacter::getLevel() const
@@ -181,26 +224,42 @@ size_t RPGCharacter::getLuck() const
 void RPGCharacter::EquipHead(RPGItem item)
 {
 	if (item.getType() == RPGItemType::Head)
+	{
+		_afin.strength.elements = (Element)(item.getValue() & Element::ElementNibble);
+		_afin.strength.phys = (Physical)(item.getValue() & Physical::PhysicalNibble);
+		_afin.weakness.elements = (Element)(item.getValue() & Element::NegateElementNibble);
+		_afin.weakness.phys = (Physical)(item.getValue() & Physical::NegatePhysicalNibble);
 		_head = RPGItem(item);
+	}
 }
 
 void RPGCharacter::EquipChest(RPGItem item)
 {
 	if (item.getType() == RPGItemType::Chest)
+	{
+		_defense -= _chest.getValue();
 		_chest = RPGItem(item);
+		_defense += _chest.getValue();
+	}
 }
 
 void RPGCharacter::EquipLegs(RPGItem item)
 {
 	if (item.getType() == RPGItemType::Legs)
+	{
+		_defense -= _boots.getValue();
 		_boots = RPGItem(item);
+		_defense += _boots.getValue();
+	}
 }
 
 void RPGCharacter::EquipWeapon(RPGItem item)
 {
 	if (item.getType() == RPGItemType::Weapon)
 	{
+		_stats.strength -= _weapon.getValue();
 		_weapon = RPGItem(item);
+		_stats.strength += _weapon.getValue();
 		_skills[0].attrib.phys = (Physical)item.getValue();
 	}
 }
@@ -347,7 +406,8 @@ void RPGCharacter::SaveToFile()
 		_ferrum << " " << _stats.strength << " " <<
 		_stats.stamina << " " << _stats.dexterity << 
 		" " << _stats.intelligence << " " << 
-		_stats.luck << " " << _afin.strength.elements << " " << _afin.strength.phys << " " <<
+		_stats.luck << " " << _afin.strength.elements << " " <<
+		_afin.strength.phys << " " <<
 		_afin.weakness.elements << " " << 
 		_afin.weakness.phys << " ";
 	file << _head.getName() << " " << _head.getType() <<
@@ -362,7 +422,8 @@ void RPGCharacter::SaveToFile()
 	file << _weapon.getName() << " " << _weapon.getType() <<
 		" " << _weapon.getUsage() << " " << _weapon.getValue() <<
 		" " << _weapon.getDescription() << " ";
-	file << _inventory.size() << " ";
+	size_t size = _inventory.size();
+	file << size << " ";
 	for(auto &i : _inventory)
 		file << i.getName() << " " << i.getType() <<
 		" " << i.getUsage() << " " << i.getValue() <<
@@ -486,4 +547,9 @@ void RPGCharacter::LevelUp()
 	_maxSkills += !(_level % _skillStep) && _maxSkills < _maxSkillsCap ? 1 : 0;
 	for (int i = 0; i < _skillPointsPerLevel; ++i)
 		AddSkillPoint(randomRange(0, _maxSkills + 1));
+}
+
+void RPGCharacter::SetOutString(std::string o)
+{
+	_outString = o;
 }

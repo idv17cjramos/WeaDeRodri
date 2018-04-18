@@ -198,18 +198,29 @@ enum RPGSummonerSkills
 };
 
 enum Element {
-	ElementNone = 0x00,
-	Earth = 0x01,
-	Wind = 0x02,
-	Fire = 0x04,
-	ElementWater = 0x08,
+	ElementNone = 0x0000,
+	Earth = 0x0001,
+	Wind = 0x0002,
+	Fire = 0x0004,
+	ElementWater = 0x0008,
+	NegateEarth = 0x0100,
+	NegateWind = 0x0200,
+	NegateFire = 0x0400,
+	NegateElementWater = 0x0800,
+	ElementNibble = 0x000F,
+	NegateElementNibble = 0x0F00,
 };
 
 enum Physical {
-	PhysicalNone = 0x00,
-	Slash = 0x01,
-	Thrust = 0x02,
-	Blunt = 0x03,
+	PhysicalNone = 0x0000,
+	Slash = 0x0010,
+	Thrust = 0x0020,
+	Blunt = 0x0040,
+	NegateSlash = 0x1000,
+	NegateThrust = 0x2000,
+	NegateBlunt = 0x4000,
+	PhysicalNibble = 0x00F0,
+	NegatePhysicalNibble = 0xF000,
 };
 
 enum RPGItemType

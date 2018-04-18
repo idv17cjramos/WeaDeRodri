@@ -5,8 +5,8 @@ RPGItem::RPGItem()
 	_type = RPGItemType::RPGItemTypeEnumEnd;
 	_usageType = RPGItemUsageType::HealHP;
 	_value = 0;
-	_name = "";
-	_description = "";
+	_name = "Nil.";
+	_description = "Nil.";
 }
 
 RPGItem::RPGItem(RPGItemType type, RPGItemUsageType usage, std::string name, int value, std::string description)

@@ -44,7 +44,7 @@ public:
 	RPGCharacter(RPGClass classT, size_t lvl, std::string name);
 	~RPGCharacter();
 	void Update();
-	void UseSkill(RPGCharacter& other, size_t skillNum);
+	std::string UseSkill(RPGCharacter& other, size_t skillNum);
 	size_t getLevel() const;
 	size_t gethp() const;
 	size_t getmp() const;
@@ -76,6 +76,7 @@ public:
 	Affinities GetAffinities();
 	void SaveToFile();
 	size_t toNextLevel();
+	static void SetOutString(std::string o);
 private:
 	size_t	_level,
 			_experience,
@@ -103,5 +104,6 @@ private:
 	const int _skillStep = 4, _statsPerLevel = 5, _skillPointsPerLevel = 1;
 	static Stats _classStats[RPGClass::RPGClassEnumEnd];
 	void AddSkillPoint(size_t skillNum);
+	static std::string _outString;
 };
 

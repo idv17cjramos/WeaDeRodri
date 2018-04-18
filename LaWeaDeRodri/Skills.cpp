@@ -18,5 +18,6 @@ int SkillFunctions::Attack(Stats stats, size_t skillPoints, Affinities targetAff
 	else if (sourceAttrib.phys & Physical::Thrust && targetAffin.strength.phys & Physical::Thrust)
 		damage *= .5f;
 	damage *= randomRange(0, 150) < stats.luck ? 1.5f : 1;
+	RPGCharacter::SetOutString("Dealt " + std::to_string(damage) + " damage.");
 	return damage;
 }

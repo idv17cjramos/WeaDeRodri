@@ -1,5 +1,6 @@
 #include "MainState.h"
 #include "Engine.h"
+#include "RPGCharacter.h"
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
@@ -54,9 +55,20 @@ void MainState::Start()
 	}
 	else
 	{
-		map = new Map(300, 300, .4500f, .4500f,7);
+		map = new Map(300, 300, .4500f, .4500f, 7);
 		map->SaveMapToFile("WeaChidolira.dat");
 	}
+	file.close();
+	file.open("Save/Limon.dat");
+	RPGCharacter *chr;
+	if (file.good())
+		chr = new RPGCharacter("Save/Limon.dat");
+	else
+	{
+		chr = new RPGCharacter(RPGClass::Mage, 1, "Limon");
+		chr->SaveToFile();
+	}
+	file.close();
 	player = new Tile(TileType::Player);
 	screenW = Engine::getInstance()->getWidth() / 2;
 	screenH = Engine::getInstance()->getHeight() / 2;
