@@ -1,11 +1,11 @@
 #include "RPGCharacter.h"
 #include "HelperFunctions.h"
 #include "Skills.h"
+#include <fstream>
 
 Stats RPGCharacter::_classStats[RPGClass::RPGClassEnumEnd] = /*Rellenando  un arreglo de stats con una inicialización de arreglo. Con esto llenas de madrazo el arreglo.
-															lo rellenas con un inicializador de una estructura.*/			
+															lo rellenas con un inicializador de una estructura.*/	
 {
-	//TODO: Llenar los stats iniciales.
 	Stats{5,9,5,9,3}, //Warrior
 	Stats{6,5,4,7,10}, //Paladin
 	Stats{6,4,6,6,7}, //Barbarian
@@ -16,7 +16,7 @@ Stats RPGCharacter::_classStats[RPGClass::RPGClassEnumEnd] = /*Rellenando  un ar
 	Stats{7,10,9,1,4}, //Summoner
 };
 
-RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
+RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _skills(nullptr)
 {
 	_level = 1;
 	_experience = 0;
@@ -27,6 +27,7 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
 	_nextLevelExperience = 10;
 	_class = classT;
 	_stats = _classStats[classT];
+	_name = name;
 	switch (_class)
 	{
 		//TODO: llenar tabla de saltos
@@ -68,6 +69,44 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl) : _skills(nullptr)
 	_skills[0] = { SkillFunctions::Attack, 1, 0, "Attack", Attributes{Element::ElementNone, Physical::Blunt} };
 	for (int i = 0; i < lvl; ++i)
 		LevelUp();
+}
+
+RPGCharacter::RPGCharacter(std::string filePath)
+{
+	std::fstream file("Save/" + _name + ".dat", std::ios::in);
+	int cls, stre, strp, wke, wkp;
+	file >> _name >> cls >> _level >> _experience >>
+		_nextLevelExperience >> _defense >> _maxSkills >>
+		_maxSkillsCap >> _hp >> _mp >> _maxHP >>
+		_maxMP >> _ferrum >> _stats.strength >> 
+		_stats.stamina >> _stats.dexterity >>
+		_stats.intelligence >> _stats.luck >>
+		stre >> strp >> wke >> wkp;
+	_class = (RPGClass)cls;
+	_afin.strength.elements = (Element)stre;
+	_afin.strength.phys = (Physical)strp;
+	_afin.weakness.elements = (Element)wke;
+	_afin.weakness.phys = (Physical)wkp;
+
+	//Se queda hasta aqui.
+	file << _head.getName() << " " << _head.getType() <<
+		" " << _head.getUsage() << " " << _head.getValue() <<
+		" " << _head.getDescription() << " ";
+	file << _chest.getName() << " " << _chest.getType() <<
+		" " << _chest.getUsage() << " " << _chest.getValue() <<
+		" " << _chest.getDescription() << " ";
+	file << _boots.getName() << " " << _boots.getType() <<
+		" " << _boots.getUsage() << " " << _boots.getValue() <<
+		" " << _boots.getDescription() << " ";
+	file << _weapon.getName() << " " << _weapon.getType() <<
+		" " << _weapon.getUsage() << " " << _weapon.getValue() <<
+		" " << _weapon.getDescription() << " ";
+	file << _inventory.size() << " ";
+	for (auto &i : _inventory)
+		file << i.getName() << " " << i.getType() <<
+		" " << i.getUsage() << " " << i.getValue() <<
+		" " << i.getDescription() << " ";
+	file.close();
 }
 
 RPGCharacter::~RPGCharacter()
@@ -270,6 +309,18 @@ void RPGCharacter::UseMp(int mpDamage)
 	_mp -= _mp - mpDamage <= _maxMP ? mpDamage : _maxMP - _mp;
 }
 
+int RPGCharacter::getFerrum()
+{
+	return _ferrum;
+}
+
+void RPGCharacter::AddFerrum(int ferrum)
+{
+	if ((_ferrum + ferrum) <= 0)
+		return;
+	_ferrum += ferrum;
+}
+
 bool RPGCharacter::isAlive()
 {
 	return _hp > 0;
@@ -283,6 +334,45 @@ std::string RPGCharacter::GetName()
 Affinities RPGCharacter::GetAffinities()
 {
 	return _afin;
+}
+
+void RPGCharacter::SaveToFile()
+{
+	std::fstream file("Save/" + _name + ".dat", std::ios::out | std::ios::trunc);
+	file << _name << " " << _class << " " <<
+		_level << " " << _experience << " " << _nextLevelExperience << " " <<
+		_defense << " " << _maxSkills << " " <<
+		_maxSkillsCap << " " << _hp << " " << 
+		_mp << " " << _maxHP << " " << _maxMP << " " <<
+		_ferrum << " " << _stats.strength << " " <<
+		_stats.stamina << " " << _stats.dexterity << 
+		" " << _stats.intelligence << " " << 
+		_stats.luck << " " << _afin.strength.elements << " " << _afin.strength.phys << " " <<
+		_afin.weakness.elements << " " << 
+		_afin.weakness.phys << " ";
+	file << _head.getName() << " " << _head.getType() <<
+		" " << _head.getUsage() << " " << _head.getValue() <<
+		" " << _head.getDescription() << " ";
+	file << _chest.getName() << " " << _chest.getType() <<
+		" " << _chest.getUsage() << " " << _chest.getValue() <<
+		" " << _chest.getDescription() << " ";
+	file << _boots.getName() << " " << _boots.getType() <<
+		" " << _boots.getUsage() << " " << _boots.getValue() <<
+		" " << _boots.getDescription() << " ";
+	file << _weapon.getName() << " " << _weapon.getType() <<
+		" " << _weapon.getUsage() << " " << _weapon.getValue() <<
+		" " << _weapon.getDescription() << " ";
+	file << _inventory.size() << " ";
+	for(auto &i : _inventory)
+		file << i.getName() << " " << i.getType() <<
+		" " << i.getUsage() << " " << i.getValue() <<
+		" " << i.getDescription() << " ";
+	file.close();
+}
+
+size_t RPGCharacter::toNextLevel()
+{
+	return _nextLevelExperience - _experience;
 }
 
 void RPGCharacter::LevelUp()

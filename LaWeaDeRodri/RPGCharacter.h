@@ -40,7 +40,8 @@ typedef struct Skill {
 class RPGCharacter
 {
 public:
-	RPGCharacter(RPGClass classT, size_t lvl);
+	RPGCharacter(std::string filePath);
+	RPGCharacter(RPGClass classT, size_t lvl, std::string name);
 	~RPGCharacter();
 	void Update();
 	void UseSkill(RPGCharacter& other, size_t skillNum);
@@ -68,22 +69,25 @@ public:
 	size_t GetSkillAmmount();
 	void Damage(int damage);
 	void UseMp(int mpDamage);
+	int getFerrum();
+	void AddFerrum(int ferrum);
 	bool isAlive();
 	std::string GetName();
 	Affinities GetAffinities();
+	void SaveToFile();
+	size_t toNextLevel();
 private:
 	size_t	_level,
 			_experience,
 			_nextLevelExperience,
 			_defense,
 			_maxSkills,
-			_maxSkillsCap,
-			_hpBaseIncrement,
-			_mpBaseIncrement;
+			_maxSkillsCap;
 	int		_hp,
 			_mp,
 			_maxHP,
-			_maxMP;
+			_maxMP,
+			_ferrum;
 	Stats _stats;
 	RPGClass _class;
 	Skill *_skills;
