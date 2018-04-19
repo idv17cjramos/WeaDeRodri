@@ -21,7 +21,7 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _ski
 {
 	_level = 1;
 	_experience = 0;
-	_maxSkills = 0;
+	_maxSkills = 1;
 	_hp = _maxHP = _basehp;
 	_mp = _maxMP = _basemp;
 	_defense = _baseDefense;
@@ -68,6 +68,7 @@ RPGCharacter::RPGCharacter(RPGClass classT, size_t lvl, std::string name) : _ski
 		_skills = new Skill[RPGSummonerSkillsEnumEnd];
 		break;
 	default:
+		return;
 		break;
 	}
 	_skills[0] = { SkillFunctions::Attack, 1, 0, "Attack", Attributes{Element::ElementNone, Physical::Blunt} };

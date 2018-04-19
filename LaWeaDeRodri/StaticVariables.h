@@ -3,8 +3,12 @@
 
 typedef struct Party
 {
-	RPGCharacter **frontLeft = nullptr, **frontCenter = nullptr, **frontRight = nullptr;
-	RPGCharacter **backLeft = nullptr, **backRight = nullptr;
+	Party();
+	RPGCharacter *&frontLeft, // 1
+		*&frontCenter, // 0
+		*&frontRight ; // 2
+	RPGCharacter *&backLeft, // 3
+		*&backRight; // 4
 }Party;
 
 class StaticVariables
@@ -15,5 +19,6 @@ public:
 	static Party playerParty, enemyParty;
 	static void GenerateEnemyParty();
 	static void ClearEnemyParty();
+	static void ClearPlayerParty();
 };
 

@@ -5,6 +5,7 @@
 #include "RPGCharacter.h"
 #include "StaticVariables.h"
 #include "MapState.h"
+#include "RPGBattleState.h"
 
 MainState::MainState()
 {
@@ -17,6 +18,10 @@ MainState::~MainState()
 
 void MainState::Start()
 {
+	StaticVariables::ClearPlayerParty();
+	StaticVariables::playerParty.frontCenter = new RPGCharacter("komo");
+	StaticVariables::playerParty.frontCenter->Update();
+	StateManager::ChangeState(new RPGBattleState());
 	tw = new TextWindow();
 	tw->SetActive(true);
 	tw->SetAutoScroll(false);
@@ -155,7 +160,7 @@ void MainState::Update()
 					tw->SetActive(true);
 					RPGCharacter* player = new RPGCharacter(cls, 1, name);
 					player->SaveToFile();
-					StaticVariables::playerParty.frontCenter = &player;
+					StaticVariables::playerParty.frontCenter = player;
 				}
 			}
 		}
@@ -217,7 +222,7 @@ void MainState::Update()
 					else
 					{
 						RPGCharacter* player = new RPGCharacter(sel.name.erase(sel.name.length() - 4, 4));
-						StaticVariables::playerParty.frontCenter = &player;
+						StaticVariables::playerParty.frontCenter = player;
 						tw->SetActive(false);
 					}
 					mw->SetActive(false);
