@@ -37,6 +37,7 @@ private:
 	std::queue<SkillUsage> turnQueue;
 	bool enemiesDone = false, playerDone = false;
 	MenuWindow * mw;
-	TextWindow * tw;
+	TextWindow * tw, *tw2;
+	int currentSelection = 0;
 };
 

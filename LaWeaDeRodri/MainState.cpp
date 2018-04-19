@@ -211,6 +211,8 @@ void MainState::Update()
 					{
 						startPressed = false;
 						ngChosen = false;
+						selMenuSetup = false;
+						tw->SetActive(false);
 					}
 					else
 					{
