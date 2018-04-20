@@ -39,7 +39,7 @@ public:
 	void EndBattle();
 	void DisplaySkills(RPGCharacter* chr);
 	void DisplayItems(RPGCharacter* chr);
-	void SelectTarget(Party& p);
+	void SelectTarget();
 	void DisplayOptions();
 private:
 	std::queue<SkillUsage> turnQueue;

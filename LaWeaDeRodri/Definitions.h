@@ -152,48 +152,127 @@ enum RPGClass {
 enum RPGWarriorSkills
 {
 	WarriorAttack,
+	IDitNotHitHer,
+	Oh,
+	HiMark,
+	HowIsYourSexLife,
+	MegalomaniumSlap,
 	RPGWarriorSkillsEnumEnd,
 };
 
 enum RPGPaladinSkills
 {
 	PaladinAttack,
+	DiosJuzga,
+	YoSeLosMando,
+    SilverRain,
+	PinchesFurros,
+	LlamarAlComandante,
+	VanishToFurZone,
+	BanHammer,
+	BanHammerConquest7890099,
+	JerichoPunisher,
+
 	RPGPaladinSkillsEnumEnd,
 };
 
 enum RPGBarbarianSkills 
 {
-	BarbarianAttack,
+	BarbarianAttack,	             
+	UCantCM,
+	Rko,
+	ManitaDePuerco,
+	GarfiasSmash,
+	Urracarrana,
+	Suplex,
+	SuperSuplex,
+	LaVoladora,
+	PanYCirco,
+	AlburDeAlbañil,
+	AlburCentralDeAbastos,
+	AlburCTM,
+	Pierrotaso,
+	SantoTiesoDelMercado,
+	Sillaso,
+	LaQuebradora,
 	RPGBarbarianSkillsEnumEnd,
 };
 
 enum RPGArcherSkills 
 {
 	ArcherAttack,
+	KneeReaper, 
+	EchoArrow,
+	FireFirePiwPiwPiw,
+	OilSearch,
+	GunsBan,
+	HolyGranade,
+	RedneckStuff,
+	LasQueTruenan,
+	LasQuetruenasResio,
+	MataPolicias,
+	MataYisus,
+	SFPKStealth,
+	SaintBulletOfShrekKomrade,
+	LaMataThots,
+	LaMataThotsResia,
+	ThotSlayer,
+	BegoneThot,
+	DeusVult,
+	ThotDestroyer,
+	ThotDetector,
+	ThotomicBomb,
+	HolyWaifuBullets,
+	BrosBeforeHoes,
+
 	RPGArcherSkillsEnumEnd,
 };
 
 enum RPGThiefSkills
 {
 	ThiefAttack,
+	Cheaseefingers,
+	Ferrummagnet, 
+	LaEstafaMaestra,
+	SaladFingeKnife,
+
+	
 	RPGThiefSkillsEnumEnd,
 };
 
 enum RPGPriestSkills
 {
 	PriestAttack,
+    Nou,
+	Urmom,
+	YElReinoDeSiriaSeraDestruido,
+	HellVanishis,
 	RPGPriestSkillsEnumEnd,
 };
 
 enum RPGMageSkills
 {
 	MageAttack,
+	Hipopotomosntrosesquipedialofobia,
+	AnywhereNearSiria,
 	RPGMageSkillsEnumEnd,
 };
 
 enum RPGSummonerSkills
 {
 	SummonerAttack,
+	Esta,
+	Grategiginthesky,
+	Bunchi,
+	Aseitgiantnreptomorfuslizard,
+	Trakantula,
+	DeaththKnugget,
+	Turbodoge,
+	Slime,
+	Snoopdog,
+	Reclutasfpk,
+	ElSanto,
+	IIiIIL,
 	RPGSummonerSkillsEnumEnd,
 };
 
@@ -203,6 +282,7 @@ enum Element {
 	Wind = 0x0002,
 	Fire = 0x0004,
 	ElementWater = 0x0008,
+	ElemementFerrum = 0x000F,
 	NegateEarth = 0x0100,
 	NegateWind = 0x0200,
 	NegateFire = 0x0400,

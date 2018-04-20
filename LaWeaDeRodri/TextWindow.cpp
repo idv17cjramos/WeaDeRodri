@@ -25,10 +25,12 @@ void TextWindow::draw()
 		_currentLetter = _string.size();
 	for (int j = _scrollLine * _maxLineWidth, i = 0; j < _currentLetter; ++j)
 	{
-		if (!(j%_maxLineWidth) && j != _scrollLine * _maxLineWidth)
+		if ((!(j%_maxLineWidth) && j != _scrollLine * _maxLineWidth) || _string.at(j) == '\n')
 		{
 			++i;
 			pos.X = (SHORT)_x + 1;
+			if (_string.at(j) == '\n')
+				continue;
 		}
 		if (i >= _maxScrollLines - 1 && !(_maxLineWidth * _height) >= _string.size()) break;
 		pos.Y = (SHORT)_y + 1 + (SHORT)i;
@@ -133,4 +135,9 @@ void TextWindow::SetUpScrollKey(const Key & val)
 void TextWindow::SetDownScrollKey(const Key & val)
 {
 	_downScroll = val;
+}
+
+bool TextWindow::FinishedRendering()
+{
+	return _currentLetter >= _string.size();
 }

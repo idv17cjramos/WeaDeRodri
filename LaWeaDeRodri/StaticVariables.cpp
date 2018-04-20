@@ -1,10 +1,5 @@
 #include "StaticVariables.h"
 
-RPGCharacter* ptr = new RPGCharacter(RPGClassEnumEnd, 0, ""),
-*ptr2 = new RPGCharacter(RPGClassEnumEnd, 0, ""),
-*ptr3 = new RPGCharacter(RPGClassEnumEnd, 0, ""),
-*ptr4 = new RPGCharacter(RPGClassEnumEnd, 0, ""),
-*ptr5 = new RPGCharacter(RPGClassEnumEnd, 0, "");
 Party StaticVariables::playerParty, StaticVariables::enemyParty;
 StaticVariables::StaticVariables()
 {
@@ -16,20 +11,21 @@ StaticVariables::~StaticVariables()
 
 void StaticVariables::GenerateEnemyParty()
 {
+	enemyParty.frontCenter = new RPGCharacter(RPGClass::Barbarian, 10, "TUGFA");
 	//TODO: hacer esto.
 }
 
 void StaticVariables::ClearEnemyParty()
 {
-	if (enemyParty.backLeft && enemyParty.backLeft != ptr4)
+	if (enemyParty.backLeft)
 		delete (enemyParty.backLeft);
-	if (enemyParty.backRight && enemyParty.backRight != ptr5)
+	if (enemyParty.backRight)
 		delete (enemyParty.backRight);
-	if (enemyParty.frontRight && enemyParty.frontRight != ptr3)
+	if (enemyParty.frontRight)
 		delete (enemyParty.frontRight);
-	if (enemyParty.frontLeft && enemyParty.frontLeft != ptr2)
+	if (enemyParty.frontLeft)
 		delete (enemyParty.frontLeft);
-	if (enemyParty.frontCenter && enemyParty.frontCenter != ptr)
+	if (enemyParty.frontCenter)
 		delete (enemyParty.frontCenter);
 	enemyParty.backLeft = enemyParty.backRight = 
 		enemyParty.frontCenter = enemyParty.frontLeft = 
@@ -38,24 +34,17 @@ void StaticVariables::ClearEnemyParty()
 
 void StaticVariables::ClearPlayerParty()
 {
-	if (playerParty.backLeft && playerParty.backLeft != ptr4)
+	if (playerParty.backLeft)
 		delete (playerParty.backLeft);
-	if (playerParty.backRight && playerParty.backRight != ptr5)
+	if (playerParty.backRight)
 		delete (playerParty.backRight);
-	if (playerParty.frontRight && playerParty.frontRight != ptr3)
+	if (playerParty.frontRight)
 		delete (playerParty.frontRight);
-	if (playerParty.frontLeft && playerParty.frontLeft != ptr2)
+	if (playerParty.frontLeft)
 		delete (playerParty.frontLeft);
-	if (playerParty.frontCenter && playerParty.frontCenter != ptr)
+	if (playerParty.frontCenter)
 		delete (playerParty.frontCenter);
 	playerParty.frontCenter = playerParty.backLeft =
 		playerParty.backRight = playerParty.frontLeft =
 		playerParty.frontRight = nullptr;
-}
-
-
-Party::Party() :frontCenter(ptr), frontLeft(ptr2), frontRight(ptr3), backLeft(ptr4), backRight(ptr5)
-{
-
-
 }

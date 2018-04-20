@@ -176,12 +176,12 @@ void MainState::Update()
 				{
 					std::string cdata = data.cFileName;
 					if(cdata.find(".dat") != std::string::npos)
-						fileNames.push_back(cdata);
+						fileNames.push_back(cdata.erase(cdata.length() - 4, 4));
 					while (FindNextFile(search, &data))
 					{
 						cdata = data.cFileName;
 						if (cdata.find(".dat") != std::string::npos)
-							fileNames.push_back(cdata);
+							fileNames.push_back(cdata.erase(cdata.length() - 4, 4));
 					}
 				}
 				mw->AddMenuItem("Back");
@@ -221,7 +221,7 @@ void MainState::Update()
 					}
 					else
 					{
-						RPGCharacter* player = new RPGCharacter(sel.name.erase(sel.name.length() - 4, 4));
+						RPGCharacter* player = new RPGCharacter(sel.name);
 						StaticVariables::playerParty.frontCenter = player;
 						tw->SetActive(false);
 					}

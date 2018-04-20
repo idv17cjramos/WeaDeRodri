@@ -546,6 +546,7 @@ void RPGCharacter::LevelUp()
 	_maxHP = _hp = _basehp + (10 * _stats.stamina);
 	_maxMP = _mp = _basemp + (5 * _stats.intelligence);
 	_maxSkills += !(_level % _skillStep) && _maxSkills < _maxSkillsCap ? 1 : 0;
+	_nextLevelExperience += _nextLevelExperience * 1.5f;
 	for (int i = 0; i < _skillPointsPerLevel; ++i)
 		AddSkillPoint(randomRange(0, _maxSkills + 1));
 }

@@ -21,6 +21,7 @@ public:
 	void SetCloseKey(const Key& val);
 	void SetUpScrollKey(const Key& val);
 	void SetDownScrollKey(const Key& val);
+	bool FinishedRendering();
 private:
 	std::string _string;
 	unsigned short _speed, _scrollLine = 0, _maxScrollLines, _maxLineWidth;//unsigned shorts

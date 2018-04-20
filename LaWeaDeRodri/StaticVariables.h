@@ -3,12 +3,11 @@
 
 typedef struct Party
 {
-	Party();
-	RPGCharacter *&frontLeft, // 1
-		*&frontCenter, // 0
-		*&frontRight ; // 2
-	RPGCharacter *&backLeft, // 3
-		*&backRight; // 4
+	RPGCharacter *frontLeft = nullptr, // 1
+		*frontCenter = nullptr, // 0
+		*frontRight = nullptr; // 2
+	RPGCharacter *backLeft = nullptr, // 3
+		*backRight = nullptr; // 4
 }Party;
 
 class StaticVariables
