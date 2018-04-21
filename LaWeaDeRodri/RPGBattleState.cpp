@@ -2,9 +2,7 @@
 #include "HelperFunctions.h"
 #include "StateEnd.h"
 
-static std::string names = 
-{
-};
+
 RPGBattleState::RPGBattleState()
 {
 }
