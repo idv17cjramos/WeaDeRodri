@@ -47,7 +47,7 @@ private:
 		battleStarted = false, battleEnded = false,
 		menuSetup = false, displayingSkills = false,
 		displayingItems = false, selectTarget = false,
-		playerWon = false, startedRender = false;
+		playerWon = false, startedRender = false, escaping = false, triedToScape = false, escaped = false;
 	MenuWindow * mw = nullptr;
 	TextWindow * partyDisplay = nullptr, *tw = nullptr;
 	SkillUsage currSkill;

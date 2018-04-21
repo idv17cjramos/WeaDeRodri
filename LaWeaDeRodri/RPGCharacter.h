@@ -45,6 +45,7 @@ public:
 	~RPGCharacter();
 	void Update();
 	std::string UseSkill(RPGCharacter& other, size_t skillNum);
+	RPGClass getClass() const;
 	size_t getLevel() const;
 	size_t gethp() const;
 	size_t getmp() const;

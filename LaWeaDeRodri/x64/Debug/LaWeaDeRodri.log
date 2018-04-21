@@ -1,4 +1,20 @@
 ﻿  RPGBattleState.cpp
-c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(159): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
-c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(391): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(177): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(415): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(416): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(421): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(426): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(435): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(444): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(449): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(458): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(468): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(473): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(482): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(492): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(497): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(506): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(516): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(521): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(530): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
   LaWeaDeRodri.vcxproj -> C:\Users\usuario\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe

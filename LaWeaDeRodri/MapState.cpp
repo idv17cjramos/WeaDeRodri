@@ -1,6 +1,10 @@
 #include "MapState.h"
 #include "Engine.h"
 #include "RPGCharacter.h"
+#include "HelperFunctions.h"
+#include "StaticVariables.h"
+#include "StateManager.h"
+#include "RPGBattleState.h"
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
@@ -46,6 +50,7 @@ void MapState::Start()
 	player->setXY(screenW, screenH);
 	realPX = screenW;
 	realPY = screenH;
+	stepsToNextFight = randomRange(0, 30);
 }
 
 void MapState::Update()
@@ -61,6 +66,118 @@ void MapState::Update()
 		{
 			--realPY;
 			++pY;
+			++stepsTaken;
+		}
+		else if (t == TileType::Treasure)
+		{
+			if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
+			{
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				for (int i = 0; i < 4; ++i);
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			else
+			{
+				for (int i = 0; i < 3; ++i);
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.backRight)
+			{
+				if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					for (int i = 0; i < 4; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+				else
+				{
+					for (int i = 0; i < 3; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+			}
+			if (StaticVariables::playerParty.backLeft)
+			{
+				if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					for (int i = 0; i < 4; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+				else
+				{
+					for (int i = 0; i < 3; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+			}
+			if (StaticVariables::playerParty.frontRight)
+			{
+				if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					for (int i = 0; i < 4; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+				else
+				{
+					for (int i = 0; i < 3; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+			}
+			if (StaticVariables::playerParty.frontLeft)
+			{
+				if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					for (int i = 0; i < 4; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+				else
+				{
+					for (int i = 0; i < 3; ++i);
+					{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					}
+				}
+			}
+			tile.up->SetTileType(TileType::Path);
 		}
 
 	}
@@ -73,6 +190,94 @@ void MapState::Update()
 		{
 			++realPY;
 			--pY;
+			++stepsTaken;
+		}
+		else if (t == TileType::Treasure)
+		{
+			if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
+			{
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				for (int i = 0; i < 2; ++i);
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			else
+			{
+				for (int i = 0; i < 3; ++i);
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.backRight)
+			{
+				if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.backLeft)
+			{
+				if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontRight)
+			{
+				if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontLeft)
+			{
+				if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			tile.down->SetTileType(TileType::Path);
 		}
 	}
 	if (InputManager::GetKey(Key::left))
@@ -84,6 +289,88 @@ void MapState::Update()
 		{
 			--realPX;
 			++pX;
+			++stepsTaken;
+		}
+		else if (t == TileType::Treasure)
+		{
+			if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
+			{
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+			else
+			{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+			if (StaticVariables::playerParty.backRight)
+			{
+				if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.backLeft)
+			{
+				if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontRight)
+			{
+				if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontLeft)
+			{
+				if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+						int randomChance = randomRange(0, 100);
+						if (randomChance < 33)
+							StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			tile.left->SetTileType(TileType::Path);
 		}
 	}
 	if (InputManager::GetKey(Key::right))
@@ -95,7 +382,95 @@ void MapState::Update()
 		{
 			++realPX;
 			--pX;
+			++stepsTaken;
 		}
+		else if (t == TileType::Treasure)
+		{
+			if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
+			{
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+			else
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+			if (StaticVariables::playerParty.backRight)
+			{
+				if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.backLeft)
+			{
+				if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontRight)
+			{
+				if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			if (StaticVariables::playerParty.frontLeft)
+			{
+				if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
+				{
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+				else
+				{
+					int randomChance = randomRange(0, 100);
+					if (randomChance < 33)
+						StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+				}
+			}
+			tile.right->SetTileType(TileType::Path);
+		}
+	}
+	if (stepsTaken >= stepsToNextFight)
+	{
+		stepsTaken = 0;
+		stepsToNextFight = randomRange(0, 30);
+		StateManager::ChangeState(new RPGBattleState());
 	}
 	map->setPlayerPositon(pX, pY);
 	map->drawMap();

@@ -1,7 +1,8 @@
 #pragma once
 #include "RPGCharacter.h"
 #include <string>
-
+#include <vector>
+#include "RPGItem.h"
 typedef struct Party
 {
 	RPGCharacter *frontLeft = nullptr, // 1
@@ -22,6 +23,7 @@ public:
 	static void GenerateEnemyParty();
 	static void ClearEnemyParty();
 	static void ClearPlayerParty();
-	static std::string *names;
+	static std::vector<std::string> names;
+	static std::vector<RPGItem> items;
 };
 

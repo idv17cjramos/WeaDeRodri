@@ -155,6 +155,11 @@ void MainState::Update()
 					tw->SetText(msg);
 					tw->SetActive(true);
 					RPGCharacter* player = new RPGCharacter(cls, 1, name);
+					player->AddItem(RPGItem(RPGItemType::Consumable, RPGItemUsageType::HealHP, "Aguita de Esta", 15, "Recupera 15hp mientras chupas esta."));
+					player->AddItem(RPGItem(RPGItemType::Consumable, RPGItemUsageType::HealHP, "Aguita de Esta", 15, "Recupera 15hp mientras chupas esta."));
+					player->AddItem(RPGItem(RPGItemType::Consumable, RPGItemUsageType::HealHP, "Aguita de Esta", 15, "Recupera 15hp mientras chupas esta."));
+					player->AddItem(RPGItem(RPGItemType::Consumable, RPGItemUsageType::HealHP, "Aguita de Esta", 15, "Recupera 15hp mientras chupas esta."));
+					player->AddItem(RPGItem(RPGItemType::Consumable, RPGItemUsageType::HealHP, "Aguita de Esta", 15, "Recupera 15hp mientras chupas esta."));
 					player->SaveToFile();
 					StaticVariables::playerParty.frontCenter = player;
 				}

@@ -2,7 +2,7 @@
 #include "HelperFunctions.h"
 
 Party StaticVariables::playerParty, StaticVariables::enemyParty;
-static std::string StaticVariables::*names = new std::string[]
+std::vector<std::string> StaticVariables::names = 
 {
 	"Vladimir",
 	"Kim yong bebe",
@@ -12,6 +12,11 @@ static std::string StaticVariables::*names = new std::string[]
 	"Chinto rey",
 	"SFPK Recruit",
 
+};
+
+std::vector<RPGItem> StaticVariables::items =
+{
+	RPGItem(RPGItemType::Consumable,RPGItemUsageType::HealHP,"Potion",40,"Heals 40 hp, nothing else."),
 };
 
 StaticVariables::StaticVariables()
@@ -56,26 +61,27 @@ int StaticVariables::players()
 
 void StaticVariables::GenerateEnemyParty()
 {
-	int rand = randomRange(0,5);
+	int rand = randomRange(1,players());
+	int randName;
 	switch (rand)
 	{
 	case 4:
-		enemyParty.frontRight = new RPGCharacter((RPGClass)randomRange(0,RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6) - 3), names[(randomRange(0,names[size()))]);
+		randName = randomRange(0, names.size());
+		enemyParty.backRight = new RPGCharacter((RPGClass)randomRange(0, RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6)), names[randName]);
 	case 3:
-		enemyParty.backLeft = new RPGCharacter(RPGClass::Barbarian, 1, "TUGFA");
+		randName = randomRange(0, names.size());
+		enemyParty.backLeft = new RPGCharacter((RPGClass)randomRange(0, RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6)), names[randName]);
 	case 2:
-		enemyParty.frontRight = new RPGCharacter(RPGClass::Barbarian, 1, "TUGFA");
+		randName = randomRange(0, names.size());
+		enemyParty.frontRight = new RPGCharacter((RPGClass)randomRange(0, RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6)), names[randName]);
 	case 1:
-		enemyParty.frontLeft = new RPGCharacter(RPGClass::Barbarian, 1, "TUGFA");
+		randName = randomRange(0, names.size());
+		enemyParty.frontLeft = new RPGCharacter((RPGClass)randomRange(0, RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6)), names[randName]);
 	case 0:
-		enemyParty.frontCenter = new RPGCharacter(RPGClass::Barbarian, 1, "TUGFA");
+		randName = randomRange(0, names.size());
+		enemyParty.frontCenter = new RPGCharacter((RPGClass)randomRange(0, RPGClassEnumEnd), playerParty.frontCenter->getLevel() + (randomRange(0, 6)), names[randName]);
 		break;
 	}
-	enemyParty.backLeft;
-	enemyParty.backRight;
-	enemyParty.frontLeft;
-	enemyParty.frontRight;
-	//TODO: hacer esto.
 }
 
 void StaticVariables::ClearEnemyParty()

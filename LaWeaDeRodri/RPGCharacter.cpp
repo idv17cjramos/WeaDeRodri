@@ -177,6 +177,11 @@ std::string RPGCharacter::UseSkill(RPGCharacter & other, size_t skillNum)
 	return _outString;
 }
 
+RPGClass RPGCharacter::getClass() const
+{
+	return _class;
+}
+
 size_t RPGCharacter::getLevel() const
 {
 	return _level;

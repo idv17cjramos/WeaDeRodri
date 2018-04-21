@@ -23,7 +23,7 @@ void RPGBattleState::Update()
 		StartBattle();
 	if (battleStarted)
 		MidBattle();
-	if (battleStarted && battleEnded)
+	if (battleStarted && battleEnded && !escaped)
 		EndBattle();
 }
 
@@ -112,6 +112,23 @@ void RPGBattleState::MidBattle()
 			DisplayItems(ref);
 		if (displayingSkills)
 			DisplaySkills(ref);
+		if (escaping)
+		{
+			int chance = randomRange(0, 100);
+			escaping = false;
+			if (chance <= 33 && !triedToScape)
+			{
+				triedToScape = true;
+				StateManager::EndState();
+				escaped = true;
+				return;
+			}
+			else
+			{
+				tw->SetText("Failed to scape");
+				triedToScape = false;
+			}
+		}
 		if (selectTarget)
 			SelectTarget();
 	}
@@ -157,7 +174,7 @@ void RPGBattleState::MidBattle()
 			currSkill.f = &RPGCharacter::UseSkill;
 			currSkill.caller = ref;
 			currSkill.dex =	ref->getDexterity();
-			currSkill.skillNum = randomRange(0, ref->GetSkillAmmount());
+			currSkill.skillNum = randomRange(0, ref->GetSkillAmmount() - 1);
 			while (currSkill.target == nullptr)
 			{
 				int targ = randomRange(0, 5);
@@ -186,9 +203,15 @@ void RPGBattleState::MidBattle()
 			tw->SetCloseKey(Key::returnK);
 		if (turnQueue.size() && (!tw->IsActive() || !startedRender))
 		{
-			SkillUsage usg = turnQueue.back();
-			tw->SetText((usg.caller->*usg.f)(*usg.target, usg.skillNum));
-			turnQueue.pop_back();
+			if (turnQueue.size() > 0)
+			{
+				SkillUsage usg = turnQueue.back();
+				if (usg.caller && usg.target)
+				{
+					tw->SetText((usg.caller->*usg.f)(*usg.target, usg.skillNum));
+				}
+				turnQueue.pop_back();
+			}
 			tw->SetCloseKey(Key::KeysEnd);
 			tw->SetActive(true);
 			startedRender = true;
@@ -389,16 +412,125 @@ void RPGBattleState::MidBattle()
 void RPGBattleState::EndBattle()
 {
 	//TODO: Gain experience and Ferrum
-	int totalXpPerPlayer = enemNum * 5 * StaticVariables::playerParty.frontCenter->getLevel() / StaticVariables::players();
+	int totalXpPerPlayer = (enemNum * 5 * StaticVariables::playerParty.frontCenter->getLevel()) / StaticVariables::players();
+	int ferrumPerPlayer = (enemNum * 30 * StaticVariables::playerParty.frontCenter->getLevel()) / StaticVariables::players();
 	StaticVariables::playerParty.frontCenter->AddExperience(totalXpPerPlayer);
+	StaticVariables::playerParty.frontCenter->AddFerrum(ferrumPerPlayer);
+	if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
+	{
+		StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+		for (int i = 0; i < 4; ++i);
+		{
+			int randomChance = randomRange(0, 100);
+			if(randomChance < 33)
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 3; ++i);
+		{
+			int randomChance = randomRange(0, 100);
+			if (randomChance < 33)
+				StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+		}
+	}
 	if (StaticVariables::playerParty.backRight)
+	{
 		StaticVariables::playerParty.backRight->AddExperience(totalXpPerPlayer);
+		StaticVariables::playerParty.backRight->AddFerrum(ferrumPerPlayer);
+		if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
+		{
+			StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			for (int i = 0; i < 4; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+	}
 	if (StaticVariables::playerParty.backLeft)
+	{
 		StaticVariables::playerParty.backLeft->AddExperience(totalXpPerPlayer);
+		StaticVariables::playerParty.backLeft->AddFerrum(ferrumPerPlayer);
+		if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
+		{
+			StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			for (int i = 0; i < 4; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+	}
 	if (StaticVariables::playerParty.frontRight)
+	{
 		StaticVariables::playerParty.frontRight->AddExperience(totalXpPerPlayer);
+		StaticVariables::playerParty.frontRight->AddFerrum(ferrumPerPlayer);
+		if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
+		{
+			StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			for (int i = 0; i < 4; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+	}
 	if (StaticVariables::playerParty.frontLeft)
+	{
 		StaticVariables::playerParty.frontLeft->AddExperience(totalXpPerPlayer);
+		StaticVariables::playerParty.frontLeft->AddFerrum(ferrumPerPlayer);
+		if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
+		{
+			StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			for (int i = 0; i < 4; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; ++i);
+			{
+				int randomChance = randomRange(0, 100);
+				if (randomChance < 33)
+					StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
+			}
+		}
+	}
 	StateManager::EndState();
 }
 
@@ -607,6 +739,7 @@ void RPGBattleState::DisplayOptions()
 		mw->AddMenuItem("Use Skill.");
 		mw->AddMenuItem("Use Item.");
 		mw->AddMenuItem("Talk.");
+		mw->AddMenuItem("Escape.");
 		mw->SetDimentions(14, 27);
 		mw->SetPosition((Engine::getInstance()->getWidth() - 16),
 			(Engine::getInstance()->getHeight() / 2) - 18);
@@ -628,6 +761,8 @@ void RPGBattleState::DisplayOptions()
 				displayingSkills = true;
 			else if (sel.itemNumber == 1)
 				displayingItems = true;
+			else if (sel.itemNumber == 3)
+				escaping = true;
 			if (mw)
 				delete mw;
 			mw = nullptr;
