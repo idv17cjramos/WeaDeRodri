@@ -361,7 +361,10 @@ void RPGCharacter::Damage(int damage)
 {
 	if (damage > 0)
 		damage *= (1 / (float)_defense) + .3f;
-	_hp -= _hp - damage <= _maxHP ? damage : _maxHP - _hp;
+	if (((float)_hp - damage) >= 0)
+		_hp -= damage;
+	else
+		_hp = 0;
 }
 
 void RPGCharacter::UseMp(int mpDamage)
@@ -543,9 +546,10 @@ void RPGCharacter::LevelUp()
 			break;
 		}
 	}
-	_maxHP = _hp = _basehp + (10 * _stats.stamina);
-	_maxMP = _mp = _basemp + (5 * _stats.intelligence);
-	_maxSkills += !(_level % _skillStep) && _maxSkills < _maxSkillsCap ? 1 : 0;
+	_maxHP = _hp += (_basehp + (10 * _stats.stamina)) / 3;
+	_maxMP = _mp += (_basemp + (5 * _stats.intelligence)) / 3;
+	int skills = (_level / _skillStep) + 1;
+	_maxSkills = skills < _maxSkillsCap ?  skills : _maxSkillsCap - 1  ;
 	_nextLevelExperience += _nextLevelExperience * 1.5f;
 	for (int i = 0; i < _skillPointsPerLevel; ++i)
 		AddSkillPoint(randomRange(0, _maxSkills + 1));

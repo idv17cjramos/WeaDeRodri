@@ -150,6 +150,7 @@
     <ClInclude Include="SimplePool.h" />
     <ClInclude Include="Skills.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateEnd.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="StaticVariables.h" />
     <ClInclude Include="TextWindow.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="SimplePool.cpp" />
     <ClCompile Include="Skills.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateEnd.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="StaticVariables.cpp" />
     <ClCompile Include="TextWindow.cpp" />

@@ -75,6 +75,9 @@
     <ClInclude Include="StaticVariables.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StateEnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StaticVariables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StateEnd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@
 #include "MenuWindow.h"
 #include "TextWindow.h"
 #include <string>
-#include <queue>
+#include <deque>
 #include <algorithm>
 
 typedef std::string(RPGCharacter::*SkillUsageFunc)(RPGCharacter& other, size_t skillNum);
@@ -42,15 +42,16 @@ public:
 	void SelectTarget();
 	void DisplayOptions();
 private:
-	std::queue<SkillUsage> turnQueue;
+	std::deque<SkillUsage> turnQueue;
 	bool enemiesDone = false, playerDone = false,
 		battleStarted = false, battleEnded = false,
 		menuSetup = false, displayingSkills = false,
 		displayingItems = false, selectTarget = false,
-		playerWon = false;
+		playerWon = false, startedRender = false;
 	MenuWindow * mw = nullptr;
 	TextWindow * partyDisplay = nullptr, *tw = nullptr;
 	SkillUsage currSkill;
 	int currentSelection = 0;
+	int enemNum = 0;
 };
 

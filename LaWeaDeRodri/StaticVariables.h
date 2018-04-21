@@ -1,5 +1,6 @@
 #pragma once
 #include "RPGCharacter.h"
+#include <string>
 
 typedef struct Party
 {
@@ -16,8 +17,11 @@ public:
 	StaticVariables();
 	~StaticVariables();
 	static Party playerParty, enemyParty;
+	static int enemies();
+	static int players();
 	static void GenerateEnemyParty();
 	static void ClearEnemyParty();
 	static void ClearPlayerParty();
+	static std::string *names;
 };
 

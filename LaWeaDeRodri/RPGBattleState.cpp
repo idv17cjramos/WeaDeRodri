@@ -1,7 +1,10 @@
 #include "RPGBattleState.h"
+#include "HelperFunctions.h"
+#include "StateEnd.h"
 
-
-
+static std::string names = 
+{
+};
 RPGBattleState::RPGBattleState()
 {
 }
@@ -30,15 +33,16 @@ void RPGBattleState::End()
 {
 	if (mw)
 		delete mw;
+	Engine::getInstance()->setMenuWindow(nullptr);
 	if (partyDisplay)
 		delete partyDisplay;
 	if (tw)
 		delete tw;
+	Engine::getInstance()->setTextWindow(nullptr);
 }
 
 void RPGBattleState::StartBattle()
 {
-	//TODO: Set textWindows.
 	tw = new TextWindow();
 	tw->SetDimentions(Engine::getInstance()->getWidth() - 20, 10);
 	tw->SetPosition(1, Engine::getInstance()->getHeight() - 12);
@@ -56,12 +60,14 @@ void RPGBattleState::StartBattle()
 	partyDisplay->SetBackgroundColor(BackgroundColor::BBLACK);
 	partyDisplay->SetActive(true);
 	battleStarted = true;
+	enemNum = StaticVariables::enemies();
 }
 
 void RPGBattleState::MidBattle()
 {
 	if (!playerDone) //Players choose their actions.
 	{
+		battleStarted = true;
 		RPGCharacter * ref;
 		switch (currentSelection)
 		{
@@ -113,50 +119,145 @@ void RPGBattleState::MidBattle()
 	}
 	else if (playerDone && !enemiesDone)
 	{
-		//TODO:Set enemy behaviour.
+		RPGCharacter * ref;
 		switch (currentSelection)
 		{
 		case 0:
 		{
+			ref = StaticVariables::enemyParty.frontCenter;
 			break;
 		}
 		case 1:
 		{
+			ref = StaticVariables::enemyParty.frontLeft;
 			break;
 		}
 		case 2:
 		{
+			ref = StaticVariables::enemyParty.frontRight;
 			break;
 		}
 		case 3:
 		{
+			ref = StaticVariables::enemyParty.backLeft;
 			break;
 		}
 		case 4:
 		{
+			ref = StaticVariables::enemyParty.backRight;
 			break;
 		}
-		default:
+		}
+		if (ref == nullptr)
 		{
+			currentSelection = 0;
 			enemiesDone = true;
-			break;
+			return;
 		}
+		else
+		{
+			currSkill.f = &RPGCharacter::UseSkill;
+			currSkill.caller = ref;
+			currSkill.dex =	ref->getDexterity();
+			currSkill.skillNum = randomRange(0, ref->GetSkillAmmount());
+			while (currSkill.target == nullptr)
+			{
+				int targ = randomRange(0, 5);
+				currSkill.target = targ == 0 ? StaticVariables::playerParty.frontCenter : targ == 1 ?
+					StaticVariables::enemyParty.frontLeft : targ == 2 ?
+					StaticVariables::enemyParty.frontRight : targ == 3 ?
+					StaticVariables::enemyParty.backLeft :
+					StaticVariables::enemyParty.backRight;
+			}
+			turnQueue.push_back(currSkill);
+			currSkill.f = nullptr;
+			currSkill.caller = nullptr;
+			currSkill.dex = 0;
+			currSkill.skillNum = 0;
+			currSkill.target = nullptr;
+			++currentSelection;
+
 		}
 		
 	}
 	else if (playerDone && enemiesDone)
 	{
-		if (turnQueue.size() && tw->FinishedRendering())
+		if (!startedRender)
+			std::sort(turnQueue.begin(), turnQueue.begin(), &compareSkillUsage);
+		if (tw->FinishedRendering())
+			tw->SetCloseKey(Key::returnK);
+		if (turnQueue.size() && (!tw->IsActive() || !startedRender))
 		{
-			tw->SetText((*turnQueue.back().caller.*turnQueue.back().f)(*turnQueue.back().target, turnQueue.back().skillNum));
-			turnQueue.pop();
+			SkillUsage usg = turnQueue.back();
+			tw->SetText((usg.caller->*usg.f)(*usg.target, usg.skillNum));
+			turnQueue.pop_back();
+			tw->SetCloseKey(Key::KeysEnd);
+			tw->SetActive(true);
+			startedRender = true;
 		}
-		else if(!turnQueue.size() && tw->FinishedRendering())
+		else if (!turnQueue.size() && tw->FinishedRendering())
 		{
-			playerDone = false; 
+			playerDone = false;
 			enemiesDone = false;
 			displayingItems = displayingSkills = selectTarget = false;
 			currentSelection = 0;
+			startedRender = false;
+		}
+
+		if (StaticVariables::playerParty.frontCenter != nullptr && !StaticVariables::playerParty.frontCenter->isAlive())
+			StateManager::ChangeState(new StateEnd());
+		if (StaticVariables::playerParty.frontLeft != nullptr && !StaticVariables::playerParty.frontLeft->isAlive())
+		{
+			delete StaticVariables::playerParty.frontLeft;
+			StaticVariables::playerParty.frontLeft = nullptr;
+		}
+		if (StaticVariables::playerParty.frontRight != nullptr && !StaticVariables::playerParty.frontRight->isAlive())
+		{
+			delete StaticVariables::playerParty.frontRight;
+			StaticVariables::playerParty.frontRight = nullptr;
+		}
+		if (StaticVariables::playerParty.backLeft != nullptr && !StaticVariables::playerParty.backLeft->isAlive())
+		{
+			delete StaticVariables::playerParty.backLeft;
+			StaticVariables::playerParty.backLeft = nullptr;
+		}
+		if (StaticVariables::playerParty.backRight != nullptr && !StaticVariables::playerParty.backRight->isAlive())
+		{
+			delete StaticVariables::playerParty.backRight;
+			StaticVariables::playerParty.backRight = nullptr;
+		}
+		if (StaticVariables::enemyParty.frontCenter != nullptr && !StaticVariables::enemyParty.frontCenter->isAlive())
+		{
+			delete StaticVariables::enemyParty.frontCenter;
+			StaticVariables::enemyParty.frontCenter = nullptr;
+		}
+		if (StaticVariables::enemyParty.frontLeft != nullptr && !StaticVariables::enemyParty.frontLeft->isAlive())
+		{
+			delete StaticVariables::enemyParty.frontLeft;
+			StaticVariables::enemyParty.frontLeft = nullptr;
+		}
+		if (StaticVariables::enemyParty.frontRight != nullptr && !StaticVariables::enemyParty.frontRight->isAlive())
+		{
+			delete StaticVariables::enemyParty.frontRight;
+			StaticVariables::enemyParty.frontRight = nullptr;
+		}
+		if (StaticVariables::enemyParty.backLeft != nullptr && !StaticVariables::enemyParty.backLeft->isAlive())
+		{
+			delete StaticVariables::enemyParty.backLeft;
+			StaticVariables::enemyParty.backLeft = nullptr;
+		}
+		if (StaticVariables::enemyParty.backRight != nullptr && !StaticVariables::enemyParty.backRight->isAlive())
+		{
+			delete StaticVariables::enemyParty.backRight;
+			StaticVariables::enemyParty.backRight = nullptr;
+		}
+		if (StaticVariables::enemyParty.frontCenter == nullptr && StaticVariables::enemyParty.frontLeft == nullptr &&
+			StaticVariables::enemyParty.frontRight == nullptr && StaticVariables::enemyParty.backLeft == nullptr &&
+			StaticVariables::enemyParty.backRight == nullptr)
+		{
+			battleEnded = true;
+			playerWon = true;
+			return;
 		}
 	}
 
@@ -290,6 +391,17 @@ void RPGBattleState::MidBattle()
 void RPGBattleState::EndBattle()
 {
 	//TODO: Gain experience and Ferrum
+	int totalXpPerPlayer = enemNum * 5 * StaticVariables::playerParty.frontCenter->getLevel() / StaticVariables::players();
+	StaticVariables::playerParty.frontCenter->AddExperience(totalXpPerPlayer);
+	if (StaticVariables::playerParty.backRight)
+		StaticVariables::playerParty.backRight->AddExperience(totalXpPerPlayer);
+	if (StaticVariables::playerParty.backLeft)
+		StaticVariables::playerParty.backLeft->AddExperience(totalXpPerPlayer);
+	if (StaticVariables::playerParty.frontRight)
+		StaticVariables::playerParty.frontRight->AddExperience(totalXpPerPlayer);
+	if (StaticVariables::playerParty.frontLeft)
+		StaticVariables::playerParty.frontLeft->AddExperience(totalXpPerPlayer);
+	StateManager::EndState();
 }
 
 void RPGBattleState::DisplaySkills(RPGCharacter * chr)
@@ -339,7 +451,6 @@ void RPGBattleState::DisplaySkills(RPGCharacter * chr)
 
 void RPGBattleState::DisplayItems(RPGCharacter * chr)
 {
-	//TODO: Display items.
 	if (!menuSetup)
 	{
 		mw = new MenuWindow();
@@ -471,7 +582,7 @@ void RPGBattleState::SelectTarget()
 					currSkill.target = StaticVariables::playerParty.frontRight;
 					break;
 				}
-				turnQueue.push(currSkill);
+				turnQueue.push_back(currSkill);
 				currSkill.caller = nullptr;
 				currSkill.target = nullptr;
 				currSkill.f = nullptr;

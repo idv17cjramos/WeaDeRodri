@@ -18,10 +18,6 @@ MainState::~MainState()
 
 void MainState::Start()
 {
-	StaticVariables::ClearPlayerParty();
-	StaticVariables::playerParty.frontCenter = new RPGCharacter("komo");
-	StaticVariables::playerParty.frontCenter->Update();
-	StateManager::ChangeState(new RPGBattleState());
 	tw = new TextWindow();
 	tw->SetActive(true);
 	tw->SetAutoScroll(false);

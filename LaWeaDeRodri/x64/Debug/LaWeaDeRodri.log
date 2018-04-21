@@ -1,2 +1,4 @@
 ﻿  RPGBattleState.cpp
-  LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(159): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\weaderodri\laweaderodri\rpgbattlestate.cpp(391): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  LaWeaDeRodri.vcxproj -> C:\Users\usuario\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
