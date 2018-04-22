@@ -122,7 +122,6 @@ void Map::Tree::Rect::drawPath(std::vector<Tile>& tmap, int w, Rect * other)
 	if (abs(dir.x) > abs(dir.y))
 	{
 		if (!dir.x)return;
-		int dirX = dir.x / abs(dir.x);
 		for (int i = center().x; i < otherCenter.x; ++i)
 		{
 			if(tmap[getAccessor(i, otherCenter.y, w)].GetType() == TileType::TileEnumEnd)
@@ -131,7 +130,6 @@ void Map::Tree::Rect::drawPath(std::vector<Tile>& tmap, int w, Rect * other)
 	}
 	else{
 		if (!dir.y)return;
-		int dirY = dir.y / abs(dir.y);
 		for (int i = center().y; i < otherCenter.y; ++i)
 		{
 			if (tmap[getAccessor(otherCenter.x, i, w)].GetType() == TileType::TileEnumEnd)

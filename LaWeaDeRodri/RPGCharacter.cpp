@@ -345,6 +345,7 @@ void RPGCharacter::ConsumeItem(size_t index)
 void RPGCharacter::AddExperience(size_t exp)
 {
 	_experience += exp;
+	Update();
 }
 
 void RPGCharacter::AddSkillPoint(size_t skillNum)

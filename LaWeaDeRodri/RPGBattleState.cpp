@@ -27,7 +27,7 @@ void RPGBattleState::Update()
 		EndBattle();
 }
 
-void RPGBattleState::End()
+void RPGBattleState::End(	)
 {
 	if (mw)
 		delete mw;
@@ -419,7 +419,7 @@ void RPGBattleState::EndBattle()
 	if (StaticVariables::playerParty.frontCenter->getClass() == RPGClass::Thief)
 	{
 		StaticVariables::playerParty.frontCenter->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
-		for (int i = 0; i < 4; ++i);
+		for (int i = 0; i < 4; ++i)
 		{
 			int randomChance = randomRange(0, 100);
 			if(randomChance < 33)
@@ -428,7 +428,7 @@ void RPGBattleState::EndBattle()
 	}
 	else
 	{
-		for (int i = 0; i < 3; ++i);
+		for (int i = 0; i < 3; ++i)
 		{
 			int randomChance = randomRange(0, 100);
 			if (randomChance < 33)
@@ -442,7 +442,7 @@ void RPGBattleState::EndBattle()
 		if (StaticVariables::playerParty.backRight->getClass() == RPGClass::Thief)
 		{
 			StaticVariables::playerParty.backRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
-			for (int i = 0; i < 4; ++i);
+			for (int i = 0; i < 4; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -451,7 +451,7 @@ void RPGBattleState::EndBattle()
 		}
 		else
 		{
-			for (int i = 0; i < 3; ++i);
+			for (int i = 0; i < 3; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -466,7 +466,7 @@ void RPGBattleState::EndBattle()
 		if (StaticVariables::playerParty.backLeft->getClass() == RPGClass::Thief)
 		{
 			StaticVariables::playerParty.backLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
-			for (int i = 0; i < 4; ++i);
+			for (int i = 0; i < 4; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -475,7 +475,7 @@ void RPGBattleState::EndBattle()
 		}
 		else
 		{
-			for (int i = 0; i < 3; ++i);
+			for (int i = 0; i < 3; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -490,7 +490,7 @@ void RPGBattleState::EndBattle()
 		if (StaticVariables::playerParty.frontRight->getClass() == RPGClass::Thief)
 		{
 			StaticVariables::playerParty.frontRight->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
-			for (int i = 0; i < 4; ++i);
+			for (int i = 0; i < 4; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -499,7 +499,7 @@ void RPGBattleState::EndBattle()
 		}
 		else
 		{
-			for (int i = 0; i < 3; ++i);
+			for (int i = 0; i < 3; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -514,7 +514,7 @@ void RPGBattleState::EndBattle()
 		if (StaticVariables::playerParty.frontLeft->getClass() == RPGClass::Thief)
 		{
 			StaticVariables::playerParty.frontLeft->AddItem(StaticVariables::items.at(randomRange(0, StaticVariables::items.size())));
-			for (int i = 0; i < 4; ++i);
+			for (int i = 0; i < 4; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)
@@ -523,7 +523,7 @@ void RPGBattleState::EndBattle()
 		}
 		else
 		{
-			for (int i = 0; i < 3; ++i);
+			for (int i = 0; i < 3; ++i)
 			{
 				int randomChance = randomRange(0, 100);
 				if (randomChance < 33)

@@ -21,3 +21,99 @@ int SkillFunctions::Attack(Stats stats, size_t skillPoints, Affinities targetAff
 	RPGCharacter::SetOutString("Dealt " + std::to_string(damage) + " damage.");
 	return damage;
 }
+
+int SkillFunctions::IDidNotHitHer(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::Oh(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::HiMark(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::HowIsYourSexLife(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::MegalomaniumSlap(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::DiosJuzga(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::YoSeLosMando(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::SilverRain(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::PinchesFurros(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::LlamarAlComandante(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::VanishToFurZone(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::BanHammer(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::BanHammerConquest7890099(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::JerichoPunisher(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::UCantCM(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::Rko(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::ManitaDePuerco(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::GarfiasSmash(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
+int SkillFunctions::Urracarrana(Stats stats, size_t skillPoints, Affinities targetAffin, Attributes sourceAttrib)
+{
+	return 0;
+}
+
