@@ -72,6 +72,11 @@ void Map::KillBoss()
 	--_livingBosses;
 }
 
+std::vector<Tile> Map::getMap() const
+{
+	return _tiledMap;
+}
+
 void Map::LoadFromFile(std::string path)
 { 
 	std::fstream elArchivo(path, std::ios::in);

@@ -16,6 +16,7 @@ public:
 	void setPlayerPositon(int x, int y);
 	int getLivingBosses();
 	void KillBoss();
+	std::vector<Tile> getMap() const;
 private:
 	void LoadFromFile(std::string path);
 	class Tree {
