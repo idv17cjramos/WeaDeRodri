@@ -414,11 +414,11 @@ std::istream & operator>>(std::istream & i, Map& map)
 				map._tiledMap[accessor].right = &map._tiledMap[getAccessor((size_t)k + 1, (size_t)j, map._width)];
 			else
 				map._tiledMap[accessor].right = new Tile(TileType::TileEnumEnd);
-			if (k - 1 > 0)
+			if (j - 1 > 0)
 				map._tiledMap[accessor].up = &map._tiledMap[getAccessor((size_t)k, (size_t)j - 1, map._width)];
 			else
 				map._tiledMap[accessor].up = new Tile(TileType::TileEnumEnd);
-			if (k + 1 < map._height)
+			if (j + 1 < map._height)
 				map._tiledMap[accessor].down = &map._tiledMap[getAccessor((size_t)k, (size_t)j + 1, map._width)];
 			else
 				map._tiledMap[accessor].down = new Tile(TileType::TileEnumEnd);

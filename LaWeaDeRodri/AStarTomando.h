@@ -43,8 +43,8 @@ private:
 	std::vector<Tile> _nodeList;
 	int _iterator = 0;
 	Map* _map = nullptr;
-	int getSmallestF(const std::vector<__int64>& fvals);
-	bool tileInSet(std::vector<Tile>& set, Tile& tile);
-	void reconstructPath(const std::vector<Tile>& cameFrom, const Tile& current);
+	int getSmallestF(std::vector<Tile>& openSet, const std::vector<__int64>& fvals);
+	bool tileInSet(std::vector<Tile>& set, Tile tile);
+	void reconstructPath(const std::vector<Tile>& cameFrom, Tile& current);
 };
 
