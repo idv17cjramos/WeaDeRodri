@@ -16,7 +16,7 @@ public:
 	Tile* left = nullptr, *right = nullptr, *up = nullptr, *down = nullptr;
 private:
 	TileType _tType = TileEnumEnd;
-	TileStatus _status;
+	TileStatus _status = TileStatus::NotWalked;
 	static unsigned char _realTiles[TileEnumEnd];
 	static unsigned short _realColors[TileEnumEnd];
 };
