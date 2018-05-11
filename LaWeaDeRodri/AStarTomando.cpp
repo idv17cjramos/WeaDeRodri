@@ -183,39 +183,31 @@ void AStarTomando::reconstructPath(const std::vector<Tile>& cameFrom, Tile & cur
 {
 	Tile actualTile = cameFrom[getAccessor(current.getX(),current.getY(), 300)];
 	_nodeList.push_back(actualTile);
-	size_t failedPath = 0;
+	std::vector<Tile> rejectedList;
 	while (actualTile.getX() != _start.x || actualTile.getY() != _start.y)
 	{
 		if (cameFrom[getAccessor(actualTile.down->getX(), actualTile.down->getY(), 300)].GetStatus() == TileStatus::Walked &&
-			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.down->getX(), actualTile.down->getY(), 300)]))
-		{
-			failedPath = 0;
+			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.down->getX(), actualTile.down->getY(), 300)]) &&
+			!tileInSet(rejectedList, cameFrom[getAccessor(actualTile.down->getX(), actualTile.down->getY(), 300)]))
 			actualTile = cameFrom[getAccessor(actualTile.down->getX(), actualTile.down->getY(), 300)];
-		}
 		else if (cameFrom[getAccessor(actualTile.up->getX(), actualTile.up->getY(), 300)].GetStatus() == TileStatus::Walked &&
-			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.up->getX(), actualTile.up->getY(), 300)]))
-		{
-			failedPath = 0;
+			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.up->getX(), actualTile.up->getY(), 300)]) &&
+			!tileInSet(rejectedList, cameFrom[getAccessor(actualTile.up->getX(), actualTile.up->getY(), 300)]))
 			actualTile = cameFrom[getAccessor(actualTile.up->getX(), actualTile.up->getY(), 300)];
-		}
 		else if (cameFrom[getAccessor(actualTile.left->getX(), actualTile.left->getY(), 300)].GetStatus() == TileStatus::Walked &&
-			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.left->getX(), actualTile.left->getY(), 300)]))
-		{
-			failedPath = 0;
+			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.left->getX(), actualTile.left->getY(), 300)]) &&
+			!tileInSet(rejectedList, cameFrom[getAccessor(actualTile.left->getX(), actualTile.left->getY(), 300)]))
 			actualTile = cameFrom[getAccessor(actualTile.left->getX(), actualTile.left->getY(), 300)];
-		}
 		else if (cameFrom[getAccessor(actualTile.right->getX(), actualTile.right->getY(), 300)].GetStatus() == TileStatus::Walked &&
-			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.right->getX(), actualTile.right->getY(), 300)]))
-		{
-			failedPath = 0;
+			!tileInSet(_nodeList, cameFrom[getAccessor(actualTile.right->getX(), actualTile.right->getY(), 300)]) &&
+			!tileInSet(rejectedList, cameFrom[getAccessor(actualTile.right->getX(), actualTile.right->getY(), 300)]))
 			actualTile = cameFrom[getAccessor(actualTile.right->getX(), actualTile.right->getY(), 300)];
-		}
 		else
 		{
-			if (failedPath == 0)
-				failedPath = 1;
-			++failedPath;
-			actualTile = _nodeList[_nodeList.size() - failedPath];
+			rejectedList.push_back(_nodeList[_nodeList.size() - 1]);
+			_nodeList.erase(_nodeList.end());
+			actualTile = _nodeList[_nodeList.size() - 1];
+			continue;
 		}
 		_nodeList.push_back(actualTile);
 	}

@@ -1,6 +1,4 @@
-﻿  MapState.cpp
-c:\users\komo97\documents\github\weaderodri\laweaderodri\mapstate.cpp(24): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\mapstate.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\mapstate.cpp(49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\komo97\documents\github\weaderodri\laweaderodri\mapstate.cpp(68): warning C4101: 't': unreferenced local variable
+﻿  AStarTomando.cpp
+c:\users\komo97\documents\github\weaderodri\laweaderodri\astartomando.cpp(162): warning C4244: 'initializing': conversion from 'const __int64' to 'int', possible loss of data
+c:\users\komo97\documents\github\weaderodri\laweaderodri\astartomando.cpp(214): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   LaWeaDeRodri.vcxproj -> C:\Users\komo97\Documents\GitHub\WeaDeRodri\x64\Debug\LaWeaDeRodri.exe
